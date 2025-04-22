@@ -1,0 +1,35 @@
+{
+  "name": "kerrialn/php-to-twig",
+  "autoload": {
+    "psr-4": {
+      "PhpToTwig\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Test\\": "tests/"
+    }
+  },
+  "scripts": {
+    "rector": "vendor/bin/rector p --ansi",
+    "rector-dry": "vendor/bin/rector p --dry-run --ansi",
+    "phpstan": "php -d memory_limit=256M vendor/bin/phpstan analyze",
+    "check-cs": "vendor/bin/ecs check --ansi",
+    "fix-cs": "vendor/bin/ecs check --fix --ansi",
+    "test": "vendor/bin/phpunit tests"
+  },
+  "authors": [
+    {
+      "name": "kez",
+      "email": "kerrialbeckettnewham@gmail.com"
+    }
+  ],
+  "require": {
+    "symfony/console": "^7.2",
+    "nikic/php-parser": "^5.4",
+    "symfony/finder": "^7.2"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^12"
+  }
+}
