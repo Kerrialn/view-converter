@@ -13,19 +13,18 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Finder\Finder;
 
-#[AsCommand(name: 'php-to-twig')]
 class TwigConverterCommand extends Command
 {
-    protected function configure() : void
+    protected function configure(): void
     {
-        $this
+        $this->setName('php-to-twig')
             ->setDescription('Converts a PHP template file to Twig')
-        ->addArgument('input', InputArgument::REQUIRED, 'PHP template file path');
+            ->addArgument('input', InputArgument::REQUIRED, 'PHP template file path');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $io = new SymfonyStyle($input,$output);
+        $io = new SymfonyStyle($input, $output);
         $path = $input->getArgument('input');
 
         $finder = new Finder();
@@ -39,9 +38,9 @@ class TwigConverterCommand extends Command
             $stmts = $parser->parse($fileContent);
 
             // 1. Check it's a template
-                // 1a. check if it has any html tags
-                // 1b. check if there are a lot of open and close tags
-            if(!$this->isPhpViewTemplate($fileContent)){
+            // 1a. check if it has any html tags
+            // 1b. check if there are a lot of open and close tags
+            if (!$this->isPhpViewTemplate($fileContent)) {
                 continue;
             }
 

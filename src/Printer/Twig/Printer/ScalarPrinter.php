@@ -16,11 +16,15 @@ final class ScalarPrinter implements NodePrinterInterface
 
     public function print(Node $node, PrinterInterface $printer): string
     {
-        return match (true) {
-            $node instanceof Scalar\String_ => "'" . $node->value . "'",
-            $node instanceof Scalar\LNumber,
-                $node instanceof Scalar\DNumber => (string) $node->value,
-            default => '{# unsupported scalar #}'
-        };
+        if ($node instanceof Scalar\String_) {
+            return "'" . $node->value . "'";
+        }
+
+        if ($node instanceof Scalar\LNumber || $node instanceof Scalar\DNumber) {
+            return (string) $node->value;
+        }
+
+        return '{# unsupported scalar #}';
     }
+
 }

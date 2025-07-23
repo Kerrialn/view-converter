@@ -10,7 +10,12 @@ use ViewConverter\Printer\Contract\PrinterInterface;
 
 final class ExpressionHelper
 {
-    public static function toString(Name|Expr|null $expr, PrinterInterface $printer): string
+    /**
+     * @param Name|Expr|null $expr
+     * @param PrinterInterface $printer
+     * @return string
+     */
+    public static function toString($expr, PrinterInterface $printer): string
     {
         if ($expr === null) {
             return 'null';
@@ -99,24 +104,52 @@ final class ExpressionHelper
         $left = self::toString($expr->left, $printer);
         $right = self::toString($expr->right, $printer);
 
-        $op = match (get_class($expr)) {
-            Expr\BinaryOp\Identical::class => '===',
-            Expr\BinaryOp\NotIdentical::class => '!==',
-            Expr\BinaryOp\Equal::class => '==',
-            Expr\BinaryOp\NotEqual::class => '!=',
-            Expr\BinaryOp\Smaller::class => '<',
-            Expr\BinaryOp\SmallerOrEqual::class => '<=',
-            Expr\BinaryOp\Greater::class => '>',
-            Expr\BinaryOp\GreaterOrEqual::class => '>=',
-            Expr\BinaryOp\Plus::class => '+',
-            Expr\BinaryOp\Minus::class => '-',
-            Expr\BinaryOp\Concat::class => '~',
-            Expr\BinaryOp\BooleanAnd::class,
-            Expr\BinaryOp\LogicalAnd::class => 'and',
-            Expr\BinaryOp\BooleanOr::class,
-            Expr\BinaryOp\LogicalOr::class => 'or',
-            default => '??',
-        };
+        $class = get_class($expr);
+        switch ($class) {
+            case Expr\BinaryOp\Identical::class:
+                $op = '===';
+                break;
+            case Expr\BinaryOp\NotIdentical::class:
+                $op = '!==';
+                break;
+            case Expr\BinaryOp\Equal::class:
+                $op = '==';
+                break;
+            case Expr\BinaryOp\NotEqual::class:
+                $op = '!=';
+                break;
+            case Expr\BinaryOp\Smaller::class:
+                $op = '<';
+                break;
+            case Expr\BinaryOp\SmallerOrEqual::class:
+                $op = '<=';
+                break;
+            case Expr\BinaryOp\Greater::class:
+                $op = '>';
+                break;
+            case Expr\BinaryOp\GreaterOrEqual::class:
+                $op = '>=';
+                break;
+            case Expr\BinaryOp\Plus::class:
+                $op = '+';
+                break;
+            case Expr\BinaryOp\Minus::class:
+                $op = '-';
+                break;
+            case Expr\BinaryOp\Concat::class:
+                $op = '~';
+                break;
+            case Expr\BinaryOp\BooleanAnd::class:
+            case Expr\BinaryOp\LogicalAnd::class:
+                $op = 'and';
+                break;
+            case Expr\BinaryOp\BooleanOr::class:
+            case Expr\BinaryOp\LogicalOr::class:
+                $op = 'or';
+                break;
+            default:
+                $op = '??';
+        }
 
         return "$left $op $right";
     }

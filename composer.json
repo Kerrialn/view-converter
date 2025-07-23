@@ -44,12 +44,14 @@
     "test": "vendor/bin/phpunit tests"
   },
   "require": {
-    "symfony/console": "^7.2",
+    "php": ">=7.4",
+    "symfony/console": "^5.4 || ^6.0 || ^7.0",
     "nikic/php-parser": "^5.4",
-    "symfony/finder": "^7.2"
+    "symfony/finder": "^5.4 || ^6.0 || ^7.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "^12"
+    "phpunit/phpunit": "^9.5 || ^10.0 || ^12.0",
+    "rector/rector": "^2.1"
   },
   "config": {
     "optimize-autoloader": true,

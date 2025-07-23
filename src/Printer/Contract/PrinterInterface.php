@@ -3,6 +3,8 @@
 namespace ViewConverter\Printer\Contract;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
+use PhpParser\Node\Name;
 
 interface PrinterInterface
 {
@@ -10,5 +12,8 @@ interface PrinterInterface
 
     public function convertNode(Node $node): string;
 
-    public function exprToString(Node\Name|Node\Expr|null $expr): string;
+    /**
+     * @param Name|Expr|null $expr
+     */
+    public function exprToString($expr): string;
 }

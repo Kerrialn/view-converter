@@ -4,9 +4,7 @@ namespace ViewConverter\Printer\Twig;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Name;
-use PhpParser\PrettyPrinter\Standard;
 use ViewConverter\Printer\Contract\NodePrinterInterface;
 use ViewConverter\Printer\Contract\PrinterInterface;
 use ViewConverter\Printer\Twig\Printer\ArrayDimFetchPrinter;
@@ -60,7 +58,10 @@ final class TwigPrinter implements PrinterInterface
         return '{# unsupported node: ' . get_class($node) . ' #}';
     }
 
-    public function exprToString(Name|Expr|null $expr): string
+    /**
+     * @param Name|Expr|null $expr
+     */
+    public function exprToString($expr): string
     {
         return ExpressionHelper::toString($expr, $this);
     }

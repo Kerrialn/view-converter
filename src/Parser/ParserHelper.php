@@ -7,7 +7,12 @@ use PhpParser\Node\Name;
 
 class ParserHelper
 {
-    public static function getCallableName(Name|Expr|string|null $nameNode, callable $exprToString): string
+    /**
+     * @param Name|Expr|string|null $nameNode
+     * @param callable $exprToString
+     * @return string
+     */
+    public static function getCallableName($nameNode, callable $exprToString): string
     {
         if ($nameNode === null) {
             return '';
