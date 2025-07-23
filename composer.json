@@ -1,6 +1,30 @@
 {
   "name": "kerrialn/view-converter",
+  "type": "library",
+  "license": "MIT",
+  "bin": [
+    "bin/view-converter"
+  ],
   "description": "template converter: convert from plain php to twig",
+  "keywords": [
+    "php",
+    "twig",
+    "template",
+    "converter",
+    "blade",
+    "templating"
+  ],
+  "homepage": "https://github.com/Kerrialn/view-converter",
+  "support": {
+    "issues": "https://github.com/Kerrialn/view-converter/issues",
+    "source": "https://github.com/Kerrialn/view-converter"
+  },
+  "authors": [
+    {
+      "name": "Kerrial Newham",
+      "email": "kerrialbeckettnewham@gmail.com"
+    }
+  ],
   "autoload": {
     "psr-4": {
       "ViewConverter\\": "src/"
@@ -19,12 +43,6 @@
     "fix-cs": "vendor/bin/ecs check --fix --ansi",
     "test": "vendor/bin/phpunit tests"
   },
-  "authors": [
-    {
-      "name": "kez",
-      "email": "kerrialbeckettnewham@gmail.com"
-    }
-  ],
   "require": {
     "symfony/console": "^7.2",
     "nikic/php-parser": "^5.4",
@@ -32,5 +50,9 @@
   },
   "require-dev": {
     "phpunit/phpunit": "^12"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true
   }
 }
