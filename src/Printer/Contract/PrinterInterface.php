@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpToTwig\Printer\Contract;
+namespace ViewConverter\Printer\Contract;
 
 use PhpParser\Node;
 

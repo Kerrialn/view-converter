@@ -1,12 +1,12 @@
 <?php
 
-namespace PhpToTwig\Printer\Twig\Printer;
+namespace ViewConverter\Printer\Twig\Printer;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
-use PhpToTwig\Printer\Contract\NodePrinterInterface;
-use PhpToTwig\Printer\Contract\PrinterInterface;
+use ViewConverter\Printer\Contract\NodePrinterInterface;
+use ViewConverter\Printer\Contract\PrinterInterface;
 
 final class ArrayPrinter implements NodePrinterInterface
 {

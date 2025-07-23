@@ -1,17 +1,17 @@
 <?php
 
-namespace Test\Printer\Twig\Printer;
+namespace ViewConverterTest\Printer\Twig\Printer;
 
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
-use PhpToTwig\Printer\Twig\Printer\ArrayDimFetchPrinter;
-use PhpToTwig\Printer\Twig\Printer\BinaryOpPrinter;
-use PhpToTwig\Printer\Twig\Printer\EchoPrinter;
-use PhpToTwig\Printer\Twig\Printer\FuncCallPrinter;
-use PhpToTwig\Printer\Twig\Printer\IfPrinter;
-use PhpToTwig\Printer\Twig\Printer\StringPrinter;
-use PhpToTwig\Printer\Twig\Printer\VariablePrinter;
-use PhpToTwig\Printer\Twig\TwigPrinter;
+use ViewConverter\Printer\Twig\Printer\ArrayDimFetchPrinter;
+use ViewConverter\Printer\Twig\Printer\BinaryOpPrinter;
+use ViewConverter\Printer\Twig\Printer\EchoPrinter;
+use ViewConverter\Printer\Twig\Printer\FuncCallPrinter;
+use ViewConverter\Printer\Twig\Printer\IfPrinter;
+use ViewConverter\Printer\Twig\Printer\StringPrinter;
+use ViewConverter\Printer\Twig\Printer\VariablePrinter;
+use ViewConverter\Printer\Twig\TwigPrinter;
 use PHPUnit\Framework\TestCase;
 
 class ArrayDimFetchPrinterTest extends TestCase

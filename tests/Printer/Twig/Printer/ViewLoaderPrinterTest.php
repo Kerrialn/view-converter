@@ -1,18 +1,18 @@
 <?php
 
-namespace Test\Printer\Twig\Printer;
+namespace ViewConverterTest\Printer\Twig\Printer;
 
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
-use PhpToTwig\Printer\Twig\Printer\ArrayPrinter;
-use PhpToTwig\Printer\Twig\Printer\EchoPrinter;
-use PhpToTwig\Printer\Twig\Printer\MethodCallPrinter;
-use PhpToTwig\Printer\Twig\Printer\PropertyFetchPrinter;
-use PhpToTwig\Printer\Twig\Printer\ScalarPrinter;
-use PhpToTwig\Printer\Twig\Printer\StringPrinter;
-use PhpToTwig\Printer\Twig\Printer\VariablePrinter;
-use PhpToTwig\Printer\Twig\Printer\ViewLoaderPrinter;
-use PhpToTwig\Printer\Twig\TwigPrinter;
+use ViewConverter\Printer\Twig\Printer\ArrayPrinter;
+use ViewConverter\Printer\Twig\Printer\EchoPrinter;
+use ViewConverter\Printer\Twig\Printer\MethodCallPrinter;
+use ViewConverter\Printer\Twig\Printer\PropertyFetchPrinter;
+use ViewConverter\Printer\Twig\Printer\ScalarPrinter;
+use ViewConverter\Printer\Twig\Printer\StringPrinter;
+use ViewConverter\Printer\Twig\Printer\VariablePrinter;
+use ViewConverter\Printer\Twig\Printer\ViewLoaderPrinter;
+use ViewConverter\Printer\Twig\TwigPrinter;
 use PHPUnit\Framework\TestCase;
 
 class ViewLoaderPrinterTest extends TestCase

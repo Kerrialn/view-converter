@@ -1,13 +1,14 @@
 {
-  "name": "kerrialn/php-to-twig",
+  "name": "kerrialn/view-converter",
+  "description": "template converter: convert from plain php to twig",
   "autoload": {
     "psr-4": {
-      "PhpToTwig\\": "src/"
+      "ViewConverter\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Test\\": "tests/"
+      "ViewConverterTest\\": "tests/"
     }
   },
   "scripts": {

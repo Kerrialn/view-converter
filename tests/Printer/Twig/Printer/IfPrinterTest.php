@@ -1,14 +1,14 @@
 <?php
 
-namespace Test\Printer\Twig\Printer;
+namespace ViewConverterTest\Printer\Twig\Printer;
 
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
-use PhpToTwig\Printer\Twig\Printer\IfPrinter;
-use PhpToTwig\Printer\Twig\Printer\EchoPrinter;
-use PhpToTwig\Printer\Twig\Printer\ScalarPrinter;
-use PhpToTwig\Printer\Twig\Printer\BinaryOpPrinter;
-use PhpToTwig\Printer\Twig\TwigPrinter;
+use ViewConverter\Printer\Twig\Printer\IfPrinter;
+use ViewConverter\Printer\Twig\Printer\EchoPrinter;
+use ViewConverter\Printer\Twig\Printer\ScalarPrinter;
+use ViewConverter\Printer\Twig\Printer\BinaryOpPrinter;
+use ViewConverter\Printer\Twig\TwigPrinter;
 use PHPUnit\Framework\TestCase;
 
 class IfPrinterTest extends TestCase

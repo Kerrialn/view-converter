@@ -1,13 +1,13 @@
 <?php
 
-namespace Test\Printer\Twig\Printer;
+namespace ViewConverterTest\Printer\Twig\Printer;
 
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
-use PhpToTwig\Printer\Twig\Printer\BooleanNotPrinter;
-use PhpToTwig\Printer\Twig\Printer\EchoPrinter;
-use PhpToTwig\Printer\Twig\Printer\VariablePrinter;
-use PhpToTwig\Printer\Twig\TwigPrinter;
+use ViewConverter\Printer\Twig\Printer\BooleanNotPrinter;
+use ViewConverter\Printer\Twig\Printer\EchoPrinter;
+use ViewConverter\Printer\Twig\Printer\VariablePrinter;
+use ViewConverter\Printer\Twig\TwigPrinter;
 use PHPUnit\Framework\TestCase;
 
 class BooleanNotPrinterTest extends TestCase

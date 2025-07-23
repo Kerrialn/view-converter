@@ -1,13 +1,13 @@
 <?php
 
-namespace PhpToTwig\Printer\Twig\Printer;
+namespace ViewConverter\Printer\Twig\Printer;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\If_;
 use PhpParser\Node\Stmt\ElseIf_;
 use PhpParser\Node\Stmt\Else_;
-use PhpToTwig\Printer\Contract\NodePrinterInterface;
-use PhpToTwig\Printer\Contract\PrinterInterface;
+use ViewConverter\Printer\Contract\NodePrinterInterface;
+use ViewConverter\Printer\Contract\PrinterInterface;
 
 final class IfPrinter implements NodePrinterInterface
 {

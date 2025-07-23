@@ -1,12 +1,12 @@
 <?php
 
-namespace PhpToTwig\Printer\Twig\Printer;
+namespace ViewConverter\Printer\Twig\Printer;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Identifier;
-use PhpToTwig\Printer\Contract\NodePrinterInterface;
-use PhpToTwig\Printer\Contract\PrinterInterface;
+use ViewConverter\Printer\Contract\NodePrinterInterface;
+use ViewConverter\Printer\Contract\PrinterInterface;
 
 final class PropertyFetchPrinter implements NodePrinterInterface
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace PhpToTwig\Util;
+namespace ViewConverter\Util;
 
 use PhpParser\Node\Expr;
 use PhpParser\Node\Name;
 use PhpParser\PrettyPrinter\Standard;
-use PhpToTwig\Parser\ParserHelper;
-use PhpToTwig\Printer\Contract\PrinterInterface;
+use ViewConverter\Parser\ParserHelper;
+use ViewConverter\Printer\Contract\PrinterInterface;
 
 final class ExpressionHelper
 {

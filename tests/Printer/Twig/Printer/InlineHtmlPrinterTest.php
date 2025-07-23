@@ -1,11 +1,11 @@
 <?php
 
-namespace Test\Printer\Twig\Printer;
+namespace ViewConverterTest\Printer\Twig\Printer;
 
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
-use PhpToTwig\Printer\Twig\Printer\InlineHtmlPrinter;
-use PhpToTwig\Printer\Twig\TwigPrinter;
+use ViewConverter\Printer\Twig\Printer\InlineHtmlPrinter;
+use ViewConverter\Printer\Twig\TwigPrinter;
 use PHPUnit\Framework\TestCase;
 
 class InlineHtmlPrinterTest extends TestCase

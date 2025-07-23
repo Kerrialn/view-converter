@@ -3,9 +3,9 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use PhpToTwig\Command\ConvertTemplateCommand;
+use ViewConverter\Command\TwigConverterCommand;
 use Symfony\Component\Console\Application;
 
 $application = new Application();
-$application->add(new ConvertTemplateCommand());
+$application->add(new TwigConverterCommand());
 $application->run();

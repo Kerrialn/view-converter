@@ -1,10 +1,10 @@
 <?php
 
-namespace PhpToTwig\Command;
+namespace ViewConverter\Command;
 
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
-use PhpToTwig\Printer\Twig\TwigPrinter;
+use ViewConverter\Printer\Twig\TwigPrinter;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -13,9 +13,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Finder\Finder;
 
-
-#[AsCommand(name: 'convert')]
-class ConvertTemplateCommand extends Command
+#[AsCommand(name: 'php-to-twig')]
+class TwigConverterCommand extends Command
 {
     protected function configure() : void
     {

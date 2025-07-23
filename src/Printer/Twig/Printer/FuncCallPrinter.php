@@ -1,12 +1,12 @@
 <?php
 
-namespace PhpToTwig\Printer\Twig\Printer;
+namespace ViewConverter\Printer\Twig\Printer;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
-use PhpToTwig\Parser\ParserHelper;
-use PhpToTwig\Printer\Contract\NodePrinterInterface;
-use PhpToTwig\Printer\Contract\PrinterInterface;
+use ViewConverter\Parser\ParserHelper;
+use ViewConverter\Printer\Contract\NodePrinterInterface;
+use ViewConverter\Printer\Contract\PrinterInterface;
 
 final class FuncCallPrinter implements NodePrinterInterface
 {

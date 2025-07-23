@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpToTwig\Parser;
+namespace ViewConverter\Parser;
 
 use PhpParser\Node\Expr;
 use PhpParser\Node\Name;

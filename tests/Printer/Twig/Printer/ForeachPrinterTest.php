@@ -1,14 +1,13 @@
 <?php
 
-namespace Test\Printer\Twig\Printer;
+namespace ViewConverterTest\Printer\Twig\Printer;
 
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
-use PhpToTwig\Printer\Twig\Printer\EchoPrinter;
-use PhpToTwig\Printer\Twig\Printer\ForeachPrinter;
-use PhpToTwig\Printer\Twig\Printer\ScalarPrinter;
-use PhpToTwig\Printer\Twig\Printer\VariablePrinter;
-use PhpToTwig\Printer\Twig\TwigPrinter;
+use ViewConverter\Printer\Twig\Printer\EchoPrinter;
+use ViewConverter\Printer\Twig\Printer\ForeachPrinter;
+use ViewConverter\Printer\Twig\Printer\VariablePrinter;
+use ViewConverter\Printer\Twig\TwigPrinter;
 use PHPUnit\Framework\TestCase;
 
 class ForeachPrinterTest extends TestCase
