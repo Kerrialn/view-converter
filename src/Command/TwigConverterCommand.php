@@ -33,7 +33,7 @@ class TwigConverterCommand extends Command
         foreach ($files as $file) {
             $filename = $file->getFilenameWithoutExtension();
             $io->info("checking file: {$filename}");
-            $parser = (new ParserFactory())->createForVersion(PhpVersion::fromString('7.0'));
+            $parser = (new ParserFactory())->create(ParserFactory::PREFER_PHP7);
             $fileContent = $file->getContents();
             $stmts = $parser->parse($fileContent);
 
