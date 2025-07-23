@@ -1,7 +1,22 @@
 #!/usr/bin/env php
 <?php
 
-require __DIR__ . '/../vendor/autoload.php';
+$autoloadPaths = [
+    __DIR__ . '/../vendor/autoload.php',      // local dev usage
+    __DIR__ . '/../../../autoload.php',       // installed as a Composer dependency
+];
+
+foreach ($autoloadPaths as $path) {
+    if (file_exists($path)) {
+        require $path;
+        break;
+    }
+}
+
+if (!class_exists(\ViewConverter\Command\TwigConverterCommand::class)) {
+    fwrite(STDERR, "Autoload failed. Did you run `composer install`?\n");
+    exit(1);
+}
 
 use ViewConverter\Command\TwigConverterCommand;
 use Symfony\Component\Console\Application;
