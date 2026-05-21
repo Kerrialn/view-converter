@@ -11,23 +11,30 @@ use ViewConverter\Printer\Twig\Printer\ArrayDimFetchPrinter;
 use ViewConverter\Printer\Twig\Printer\ArrayPrinter;
 use ViewConverter\Printer\Twig\Printer\BinaryOpPrinter;
 use ViewConverter\Printer\Twig\Printer\BooleanNotPrinter;
+use ViewConverter\Printer\Twig\Printer\CastPrinter;
+use ViewConverter\Printer\Twig\Printer\ClassConstFetchPrinter;
 use ViewConverter\Printer\Twig\Printer\ConcatPrinter;
+use ViewConverter\Printer\Twig\Printer\ConstFetchPrinter;
 use ViewConverter\Printer\Twig\Printer\EchoPrinter;
+use ViewConverter\Printer\Twig\Printer\EmptyCheckPrinter;
 use ViewConverter\Printer\Twig\Printer\ExpressionPrinter;
+use ViewConverter\Printer\Twig\Printer\ForPrinter;
 use ViewConverter\Printer\Twig\Printer\ForeachPrinter;
 use ViewConverter\Printer\Twig\Printer\FuncCallPrinter;
 use ViewConverter\Printer\Twig\Printer\IfPrinter;
 use ViewConverter\Printer\Twig\Printer\InlineHtmlPrinter;
+use ViewConverter\Printer\Twig\Printer\IssetPrinter;
 use ViewConverter\Printer\Twig\Printer\MethodCallPrinter;
-use ViewConverter\Printer\Twig\Printer\CastPrinter;
 use ViewConverter\Printer\Twig\Printer\PropertyFetchPrinter;
 use ViewConverter\Printer\Twig\Printer\PyroThemeLoaderPrinter;
 use ViewConverter\Printer\Twig\Printer\ScalarPrinter;
+use ViewConverter\Printer\Twig\Printer\StaticCallPrinter;
 use ViewConverter\Printer\Twig\Printer\StringPrinter;
 use ViewConverter\Printer\Twig\Printer\TernaryPrinter;
 use ViewConverter\Printer\Twig\Printer\TransPrinter;
 use ViewConverter\Printer\Twig\Printer\VariablePrinter;
 use ViewConverter\Printer\Twig\Printer\ViewLoaderPrinter;
+use ViewConverter\Printer\Twig\Printer\WhilePrinter;
 use ViewConverter\Util\ExpressionHelper;
 
 final class TwigPrinter implements PrinterInterface
@@ -47,8 +54,6 @@ final class TwigPrinter implements PrinterInterface
 
     public function convertNode(Node $node): string
     {
-
-
         foreach ($this->nodePrinters as $printer) {
             if ($printer->supports($node)) {
                 return $printer->print($node, $this);
@@ -75,6 +80,11 @@ final class TwigPrinter implements PrinterInterface
             new EchoPrinter(),
             new ArrayPrinter(),
             new CastPrinter(),
+            new ConstFetchPrinter(),
+            new IssetPrinter(),
+            new EmptyCheckPrinter(),
+            new ClassConstFetchPrinter(),
+            new StaticCallPrinter(),
             new PyroThemeLoaderPrinter(),
             new ViewLoaderPrinter(),
             new MethodCallPrinter(),
@@ -89,6 +99,8 @@ final class TwigPrinter implements PrinterInterface
             new BooleanNotPrinter(),
             new InlineHtmlPrinter(),
             new ForeachPrinter(),
+            new ForPrinter(),
+            new WhilePrinter(),
             new ArrayDimFetchPrinter(),
         ];
     }

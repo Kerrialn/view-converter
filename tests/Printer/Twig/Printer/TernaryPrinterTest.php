@@ -10,12 +10,13 @@ use ViewConverter\Printer\Twig\Printer\ScalarPrinter;
 use ViewConverter\Printer\Twig\Printer\TernaryPrinter;
 use ViewConverter\Printer\Twig\Printer\VariablePrinter;
 use ViewConverter\Printer\Twig\TwigPrinter;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class TernaryPrinterTest extends TestCase
 {
-    #[DataProvider('ternaryProvider')]
+    /**
+     * @dataProvider ternaryProvider
+     */
     public function testTernaryIsConvertedCorrectly(string $phpExpr, string $expectedTwigOutput): void
     {
         $code = <<<PHP

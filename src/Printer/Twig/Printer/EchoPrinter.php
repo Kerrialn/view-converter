@@ -30,7 +30,7 @@ final class EchoPrinter implements NodePrinterInterface
         $output = $printer->convertNode($expr);
 
         $trimmed = trim($output);
-        if (str_starts_with($trimmed, '{%') || str_starts_with($trimmed, '{{') || str_starts_with($trimmed, '{#')) {
+        if (strpos($trimmed, '{%') === 0 || strpos($trimmed, '{{') === 0 || strpos($trimmed, '{#') === 0) {
             return $output;
         }
 

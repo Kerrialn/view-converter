@@ -16,15 +16,39 @@ final class ScalarPrinter implements NodePrinterInterface
 
     public function print(Node $node, PrinterInterface $printer): string
     {
-        if ($node instanceof Scalar\String_) {
-            return "'" . $node->value . "'";
+        if ($node instanceof Scalar\Encapsed) {
+            return $this->printEncapsed($node, $printer);
         }
 
-        if ($node instanceof Scalar\LNumber || $node instanceof Scalar\DNumber) {
+        if ($node instanceof Scalar\String_) {
+            return "'" . addslashes($node->value) . "'";
+        }
+
+        if ($node instanceof Scalar\Int_ || $node instanceof Scalar\Float_) {
             return (string) $node->value;
         }
 
         return '{# unsupported scalar #}';
     }
 
+    private function printEncapsed(Scalar\Encapsed $node, PrinterInterface $printer): string
+    {
+        $parts = [];
+
+        foreach ($node->parts as $part) {
+            if ($part instanceof Scalar\EncapsedStringPart) {
+                if ($part->value !== '') {
+                    $parts[] = "'" . addslashes($part->value) . "'";
+                }
+            } else {
+                $parts[] = $printer->convertNode($part);
+            }
+        }
+
+        if (empty($parts)) {
+            return "''";
+        }
+
+        return implode(' ~ ', $parts);
+    }
 }

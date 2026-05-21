@@ -62,11 +62,25 @@ final class BinaryOpPrinter implements NodePrinterInterface
             case BinaryOp\Minus::class:
                 $operator = '-';
                 break;
-            default:
+            case BinaryOp\Mul::class:
+                $operator = '*';
+                break;
+            case BinaryOp\Div::class:
+                $operator = '/';
+                break;
+            case BinaryOp\Mod::class:
+                $operator = '%';
+                break;
+            case BinaryOp\Pow::class:
+                $operator = '**';
+                break;
+            case BinaryOp\Coalesce::class:
                 $operator = '??';
+                break;
+            default:
+                return "{# unsupported operator: " . basename(str_replace('\\', '/', $class)) . " #}";
         }
 
         return "$left $operator $right";
     }
-
 }

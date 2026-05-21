@@ -7,12 +7,13 @@ use PhpParser\PhpVersion;
 use ViewConverter\Printer\Twig\Printer\EchoPrinter;
 use ViewConverter\Printer\Twig\Printer\ScalarPrinter;
 use ViewConverter\Printer\Twig\TwigPrinter;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ScalarPrinterTest extends TestCase
 {
-    #[DataProvider('scalarProvider')]
+    /**
+     * @dataProvider scalarProvider
+     */
     public function testScalarValuesArePrintedCorrectly(string $phpExpr, string $expectedTwigOutput)
     {
         $code = <<<PHP

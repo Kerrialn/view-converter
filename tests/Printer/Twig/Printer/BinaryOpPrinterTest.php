@@ -8,12 +8,13 @@ use ViewConverter\Printer\Twig\Printer\BinaryOpPrinter;
 use ViewConverter\Printer\Twig\Printer\EchoPrinter;
 use ViewConverter\Printer\Twig\Printer\ScalarPrinter;
 use ViewConverter\Printer\Twig\TwigPrinter;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class BinaryOpPrinterTest extends TestCase
 {
-    #[DataProvider('binaryOpProvider')]
+    /**
+     * @dataProvider binaryOpProvider
+     */
     public function testBinaryOpIsConvertedCorrectly(string $expression, string $expectedTwig): void
     {
         $code = <<<PHP

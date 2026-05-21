@@ -2,7 +2,9 @@
 
 namespace ViewConverter\Util;
 
+use PhpParser\Node;
 use PhpParser\Node\Expr;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\PrettyPrinter\Standard;
 use ViewConverter\Parser\ParserHelper;
@@ -19,6 +21,20 @@ final class ExpressionHelper
     {
         if ($expr === null) {
             return 'null';
+        }
+
+        // isset($x) → x is defined, isset($x, $y) → x is defined and y is defined
+        if ($expr instanceof Expr\Isset_) {
+            $checks = array_map(
+                fn($var) => self::toString($var, $printer) . ' is defined',
+                $expr->vars
+            );
+            return implode(' and ', $checks);
+        }
+
+        // empty($x) → x is empty
+        if ($expr instanceof Expr\Empty_) {
+            return self::toString($expr->expr, $printer) . ' is empty';
         }
 
         // is_null($x) → x is null
@@ -49,7 +65,61 @@ final class ExpressionHelper
             return ltrim($expr->name, '$');
         }
 
-        // $a + $b → a + b
+        // Scalar literals
+        if ($expr instanceof Node\Scalar\String_) {
+            return "'" . addslashes($expr->value) . "'";
+        }
+        if ($expr instanceof Node\Scalar\Int_ || $expr instanceof Node\Scalar\Float_) {
+            return (string) $expr->value;
+        }
+        if ($expr instanceof Node\Scalar\Encapsed) {
+            $parts = [];
+            foreach ($expr->parts as $part) {
+                if ($part instanceof Node\Scalar\EncapsedStringPart) {
+                    if ($part->value !== '') {
+                        $parts[] = "'" . addslashes($part->value) . "'";
+                    }
+                } else {
+                    $parts[] = self::toString($part, $printer);
+                }
+            }
+            return empty($parts) ? "''" : implode(' ~ ', $parts);
+        }
+
+        // Boolean/null constants
+        if ($expr instanceof Node\Expr\ConstFetch) {
+            return strtolower((string) $expr->name);
+        }
+
+        // $obj->prop → obj.prop
+        if ($expr instanceof Expr\PropertyFetch) {
+            return self::propertyFetchToString($expr, $printer);
+        }
+
+        // $obj->method(args) → obj.method(args)
+        if ($expr instanceof Expr\MethodCall) {
+            $object = self::toString($expr->var, $printer);
+            $method = $expr->name instanceof Identifier ? $expr->name->toString() : self::toString($expr->name, $printer);
+            $args = array_map(fn($arg) => self::toString($arg->value, $printer), $expr->args);
+            return "$object.$method(" . implode(', ', $args) . ")";
+        }
+
+        // ClassName::CONST → constant('ClassName::CONST')
+        if ($expr instanceof Expr\ClassConstFetch) {
+            $class = $expr->class instanceof Name ? $expr->class->toString() : self::toString($expr->class, $printer);
+            $const = $expr->name instanceof Identifier ? $expr->name->toString() : '';
+            return "constant('$class::$const')";
+        }
+
+        // ClassName::method() → static call comment
+        if ($expr instanceof Expr\StaticCall) {
+            $class = $expr->class instanceof Name ? $expr->class->toString() : self::toString($expr->class, $printer);
+            $method = $expr->name instanceof Identifier ? $expr->name->toString() : '';
+            $args = array_map(fn($arg) => self::toString($arg->value, $printer), $expr->args);
+            return "{# static: $class::$method(" . implode(', ', $args) . ") #}";
+        }
+
+        // $a + $b → a + b (and other binary ops)
         if ($expr instanceof Expr\BinaryOp) {
             return self::binaryOpToString($expr, $printer);
         }
@@ -69,9 +139,28 @@ final class ExpressionHelper
             return $name . '(' . implode(', ', $args) . ')';
         }
 
+        // include/require → include(path)
+        if ($expr instanceof Expr\Include_) {
+            return 'include(' . self::toString($expr->expr, $printer) . ')';
+        }
+
         // Fallback: use raw pretty printer
         $fallback = new Standard();
         return $fallback->prettyPrintExpr($expr);
+    }
+
+    private static function propertyFetchToString(Expr\PropertyFetch $expr, PrinterInterface $printer): string
+    {
+        $parts = [];
+        $current = $expr;
+
+        while ($current instanceof Expr\PropertyFetch) {
+            $parts[] = $current->name instanceof Identifier ? $current->name->toString() : '';
+            $current = $current->var;
+        }
+
+        $base = self::toString($current, $printer);
+        return $base . '.' . implode('.', array_reverse($parts));
     }
 
     private static function arrayDimToDot(Expr\ArrayDimFetch $expr, PrinterInterface $printer): string
@@ -82,10 +171,10 @@ final class ExpressionHelper
             $dim = $expr->dim;
 
             if ($dim instanceof Node\Scalar\String_) {
-                $parts[] = $dim->value; // ✅ raw string, no quotes
+                $parts[] = $dim->value;
             } elseif ($dim instanceof Expr) {
                 $dimString = self::toString($dim, $printer);
-                $parts[] = trim($dimString, '"\''); // remove quotes just in case
+                $parts[] = trim($dimString, '"\'');
             } else {
                 $parts[] = 'unknown';
             }
@@ -99,6 +188,7 @@ final class ExpressionHelper
 
         return implode('.', array_reverse($parts));
     }
+
     private static function binaryOpToString(Expr\BinaryOp $expr, PrinterInterface $printer): string
     {
         $left = self::toString($expr->left, $printer);
@@ -136,6 +226,18 @@ final class ExpressionHelper
             case Expr\BinaryOp\Minus::class:
                 $op = '-';
                 break;
+            case Expr\BinaryOp\Mul::class:
+                $op = '*';
+                break;
+            case Expr\BinaryOp\Div::class:
+                $op = '/';
+                break;
+            case Expr\BinaryOp\Mod::class:
+                $op = '%';
+                break;
+            case Expr\BinaryOp\Pow::class:
+                $op = '**';
+                break;
             case Expr\BinaryOp\Concat::class:
                 $op = '~';
                 break;
@@ -147,8 +249,11 @@ final class ExpressionHelper
             case Expr\BinaryOp\LogicalOr::class:
                 $op = 'or';
                 break;
-            default:
+            case Expr\BinaryOp\Coalesce::class:
                 $op = '??';
+                break;
+            default:
+                return "{# unsupported operator: " . basename(str_replace('\\', '/', $class)) . " #}";
         }
 
         return "$left $op $right";

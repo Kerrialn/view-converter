@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-use ViewConverter\Command\TwigConverterCommand;
+use ViewConverter\Command\ViewConverterCommand;
 use Symfony\Component\Console\Application;
 
 $autoloadPaths = [
@@ -18,11 +18,11 @@ foreach ($autoloadPaths as $path) {
     break;
 }
 
-if (!class_exists(TwigConverterCommand::class)) {
+if (!class_exists(ViewConverterCommand::class)) {
     fwrite(STDERR, "Autoload failed. Did you run `composer install`?\n");
     exit(1);
 }
 
 $application = new Application();
-$application->add(new TwigConverterCommand());
+$application->add(new ViewConverterCommand());
 $application->run();

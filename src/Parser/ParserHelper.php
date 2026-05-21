@@ -29,5 +29,4 @@ class ParserHelper
         return (string) $nameNode;
     }
 
-
 }

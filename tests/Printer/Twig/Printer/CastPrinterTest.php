@@ -8,12 +8,13 @@ use ViewConverter\Printer\Twig\Printer\CastPrinter;
 use ViewConverter\Printer\Twig\Printer\EchoPrinter;
 use ViewConverter\Printer\Twig\Printer\VariablePrinter;
 use ViewConverter\Printer\Twig\TwigPrinter;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class CastPrinterTest extends TestCase
 {
-    #[DataProvider('castProvider')]
+    /**
+     * @dataProvider castProvider
+     */
     public function testCastsAreUnwrappedInTwig(string $code, string $expected): void
     {
         $parser = (new ParserFactory())->createForVersion(PhpVersion::fromString('7.4'));

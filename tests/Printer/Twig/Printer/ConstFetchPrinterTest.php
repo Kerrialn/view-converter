@@ -7,12 +7,13 @@ use PhpParser\PhpVersion;
 use ViewConverter\Printer\Twig\Printer\ConstFetchPrinter;
 use ViewConverter\Printer\Twig\Printer\EchoPrinter;
 use ViewConverter\Printer\Twig\TwigPrinter;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ConstFetchPrinterTest extends TestCase
 {
-    #[DataProvider('constFetchProvider')]
+    /**
+     * @dataProvider constFetchProvider
+     */
     public function testConstFetchIsPrintedCorrectly(string $phpCode, string $expectedTwig): void
     {
         $code = <<<PHP

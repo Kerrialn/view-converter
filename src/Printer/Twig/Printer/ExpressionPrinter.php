@@ -27,12 +27,24 @@ final class ExpressionPrinter implements NodePrinterInterface
             return "{% set $var = $value %}";
         }
 
-        // Standalone function call → {{ someFunc(...) }}
-        if ($expr instanceof Expr\FuncCall) {
+        // Include/require → {% include %}
+        if ($expr instanceof Expr\Include_) {
+            $path = $printer->exprToString($expr->expr);
+            return "{% include $path %}";
+        }
+
+        // Static call → delegate to StaticCallPrinter (returns a comment)
+        if ($expr instanceof Expr\StaticCall) {
+            return $printer->convertNode($expr);
+        }
+
+        // Method call or function call → {{ expr }}
+        if ($expr instanceof Expr\MethodCall || $expr instanceof Expr\FuncCall) {
             return '{{ ' . $printer->exprToString($expr) . ' }}';
         }
 
-        // Static method call? Method call? Raw expression? — fallback
-        return '{# unsupported expression: ' . get_class($expr) . ' #}';
+        // Fallback: wrap as output value
+        $converted = $printer->exprToString($expr);
+        return '{{ ' . $converted . ' }}';
     }
 }
