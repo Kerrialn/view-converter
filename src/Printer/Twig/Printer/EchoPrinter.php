@@ -36,5 +36,4 @@ final class EchoPrinter implements NodePrinterInterface
 
         return '{{ ' . $output . ' }}';
     }
-
 }

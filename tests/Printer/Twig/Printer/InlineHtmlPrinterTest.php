@@ -4,13 +4,13 @@ namespace ViewConverterTest\Printer\Twig\Printer;
 
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
+use PHPUnit\Framework\TestCase;
 use ViewConverter\Printer\Twig\Printer\InlineHtmlPrinter;
 use ViewConverter\Printer\Twig\TwigPrinter;
-use PHPUnit\Framework\TestCase;
 
 class InlineHtmlPrinterTest extends TestCase
 {
-    public function testInlineHtmlIsPrintedAsIs()
+    public function testInlineHtmlIsPrintedAsIs(): void
     {
         $code = <<<PHP
 <?php ?>

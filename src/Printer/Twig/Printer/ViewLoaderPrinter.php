@@ -45,6 +45,10 @@ final class ViewLoaderPrinter implements NodePrinterInterface
 
     public function print(Node $node, PrinterInterface $printer): string
     {
+        if (! $node instanceof MethodCall) {
+            return '';
+        }
+
         $viewPath = $printer->convertNode($node->args[0]->value);
         $context = isset($node->args[1]) ? $printer->convertNode($node->args[1]->value) : '{}';
 

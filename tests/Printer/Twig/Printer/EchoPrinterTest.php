@@ -4,14 +4,14 @@ namespace ViewConverterTest\Printer\Twig\Printer;
 
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
+use PHPUnit\Framework\TestCase;
 use ViewConverter\Printer\Twig\Printer\EchoPrinter;
 use ViewConverter\Printer\Twig\Printer\StringPrinter;
 use ViewConverter\Printer\Twig\TwigPrinter;
-use PHPUnit\Framework\TestCase;
 
 class EchoPrinterTest extends TestCase
 {
-    public function testEchoStatementPrintsAsTwigOutput()
+    public function testEchoStatementPrintsAsTwigOutput(): void
     {
         $code = <<<PHP
 <?php echo 'hello';

@@ -10,21 +10,15 @@ final class ConditionalsPattern implements BladePatternInterface
     public function apply(string $content): string
     {
         // @isset($var) → {% if var is defined %}
-        $content = preg_replace_callback('/@isset\s*\((.+?)\)/', function ($m) {
-            return '{% if ' . BladeExpressionHelper::convertExpr(trim($m[1])) . ' is defined %}';
-        }, $content);
+        $content = preg_replace_callback('/@isset\s*\((.+?)\)/', fn($m) => '{% if ' . BladeExpressionHelper::convertExpr(trim($m[1])) . ' is defined %}', $content);
         $content = str_replace('@endisset', '{% endif %}', $content);
 
         // @empty($var) → {% if var is empty %}
-        $content = preg_replace_callback('/@empty\s*\((.+?)\)/', function ($m) {
-            return '{% if ' . BladeExpressionHelper::convertExpr(trim($m[1])) . ' is empty %}';
-        }, $content);
+        $content = preg_replace_callback('/@empty\s*\((.+?)\)/', fn($m) => '{% if ' . BladeExpressionHelper::convertExpr(trim($m[1])) . ' is empty %}', $content);
         $content = str_replace('@endempty', '{% endif %}', $content);
 
         // @unless($cond) → {% if not (cond) %}
-        $content = preg_replace_callback('/@unless\s*\((.+?)\)/', function ($m) {
-            return '{% if not (' . BladeExpressionHelper::convertExpr(trim($m[1])) . ') %}';
-        }, $content);
+        $content = preg_replace_callback('/@unless\s*\((.+?)\)/', fn($m) => '{% if not (' . BladeExpressionHelper::convertExpr(trim($m[1])) . ') %}', $content);
         $content = str_replace('@endunless', '{% endif %}', $content);
 
         // @auth / @guest
@@ -34,12 +28,8 @@ final class ConditionalsPattern implements BladePatternInterface
         $content = str_replace('@endguest', '{% endif %}', $content);
 
         // @if / @elseif / @else / @endif
-        $content = preg_replace_callback('/@if\s*\((.+?)\)/', function ($m) {
-            return '{% if ' . BladeExpressionHelper::convertExpr(trim($m[1])) . ' %}';
-        }, $content);
-        $content = preg_replace_callback('/@elseif\s*\((.+?)\)/', function ($m) {
-            return '{% elseif ' . BladeExpressionHelper::convertExpr(trim($m[1])) . ' %}';
-        }, $content);
+        $content = preg_replace_callback('/@if\s*\((.+?)\)/', fn($m) => '{% if ' . BladeExpressionHelper::convertExpr(trim($m[1])) . ' %}', $content);
+        $content = preg_replace_callback('/@elseif\s*\((.+?)\)/', fn($m) => '{% elseif ' . BladeExpressionHelper::convertExpr(trim($m[1])) . ' %}', $content);
         $content = preg_replace('/@else\b/', '{% else %}', $content);
         $content = str_replace('@endif', '{% endif %}', $content);
 

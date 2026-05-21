@@ -2,8 +2,8 @@
 
 namespace ViewConverterTest\Printer\Blade\Pattern;
 
-use ViewConverter\Printer\Blade\Pattern\RawOutputPattern;
 use PHPUnit\Framework\TestCase;
+use ViewConverter\Printer\Blade\Pattern\RawOutputPattern;
 
 class RawOutputPatternTest extends TestCase
 {

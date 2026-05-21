@@ -2,8 +2,8 @@
 
 namespace ViewConverterTest\Printer\Blade\Pattern;
 
-use ViewConverter\Printer\Blade\Pattern\LoopsPattern;
 use PHPUnit\Framework\TestCase;
+use ViewConverter\Printer\Blade\Pattern\LoopsPattern;
 
 class LoopsPatternTest extends TestCase
 {
@@ -16,7 +16,7 @@ class LoopsPatternTest extends TestCase
 
     public function testForeachConvertsToTwigFor(): void
     {
-        $input  = "@foreach(\$items as \$item)\n    x\n@endforeach";
+        $input = "@foreach(\$items as \$item)\n    x\n@endforeach";
         $output = $this->pattern->apply($input);
 
         $this->assertStringContainsString('{% for item in items %}', $output);
@@ -25,7 +25,7 @@ class LoopsPatternTest extends TestCase
 
     public function testKeyValueForeachIsConverted(): void
     {
-        $input  = "@foreach(\$items as \$key => \$value)\n    x\n@endforeach";
+        $input = "@foreach(\$items as \$key => \$value)\n    x\n@endforeach";
         $output = $this->pattern->apply($input);
 
         $this->assertStringContainsString('{% for key, value in items %}', $output);

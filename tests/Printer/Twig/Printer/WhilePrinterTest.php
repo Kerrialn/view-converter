@@ -4,16 +4,16 @@ namespace ViewConverterTest\Printer\Twig\Printer;
 
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
+use PHPUnit\Framework\TestCase;
 use ViewConverter\Printer\Twig\Printer\EchoPrinter;
 use ViewConverter\Printer\Twig\Printer\ScalarPrinter;
 use ViewConverter\Printer\Twig\Printer\VariablePrinter;
 use ViewConverter\Printer\Twig\Printer\WhilePrinter;
 use ViewConverter\Printer\Twig\TwigPrinter;
-use PHPUnit\Framework\TestCase;
 
 class WhilePrinterTest extends TestCase
 {
-    public function testWhileOutputsTodoComment()
+    public function testWhileOutputsTodoComment(): void
     {
         $code = <<<PHP
 <?php
@@ -27,7 +27,7 @@ PHP;
         $this->assertStringContainsString("{# endwhile #}", $output);
     }
 
-    public function testWhileBodyIsIncluded()
+    public function testWhileBodyIsIncluded(): void
     {
         $code = <<<PHP
 <?php
@@ -40,6 +40,9 @@ PHP;
         $this->assertStringContainsString("{{ 'item' }}", $output);
     }
 
+    /**
+     * @return \PhpParser\Node\Stmt[]
+     */
     private function parse(string $code): array
     {
         $parser = (new ParserFactory())->createForVersion(PhpVersion::fromString('7.4'));

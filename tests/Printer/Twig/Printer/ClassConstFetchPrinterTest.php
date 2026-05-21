@@ -4,14 +4,14 @@ namespace ViewConverterTest\Printer\Twig\Printer;
 
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
+use PHPUnit\Framework\TestCase;
 use ViewConverter\Printer\Twig\Printer\ClassConstFetchPrinter;
 use ViewConverter\Printer\Twig\Printer\EchoPrinter;
 use ViewConverter\Printer\Twig\TwigPrinter;
-use PHPUnit\Framework\TestCase;
 
 class ClassConstFetchPrinterTest extends TestCase
 {
-    public function testClassConstantConvertsToTwigConstantFunction()
+    public function testClassConstantConvertsToTwigConstantFunction(): void
     {
         $code = <<<PHP
 <?php echo App::VERSION;
@@ -21,7 +21,7 @@ PHP;
         $this->assertSame("{{ constant('App::VERSION') }}", trim($output));
     }
 
-    public function testNamespacedClassConstantIsConverted()
+    public function testNamespacedClassConstantIsConverted(): void
     {
         $code = <<<PHP
 <?php echo MyApp\Config::DEBUG;
@@ -32,6 +32,9 @@ PHP;
         $this->assertStringContainsString('::DEBUG', $output);
     }
 
+    /**
+     * @return \PhpParser\Node\Stmt[]
+     */
     private function parse(string $code): array
     {
         $parser = (new ParserFactory())->createForVersion(PhpVersion::fromString('7.4'));

@@ -2,8 +2,8 @@
 
 namespace ViewConverterTest\Printer\Blade\Pattern;
 
-use ViewConverter\Printer\Blade\Pattern\ForeachElsePattern;
 use PHPUnit\Framework\TestCase;
+use ViewConverter\Printer\Blade\Pattern\ForeachElsePattern;
 
 class ForeachElsePatternTest extends TestCase
 {

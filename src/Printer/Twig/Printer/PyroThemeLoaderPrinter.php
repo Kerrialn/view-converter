@@ -41,10 +41,14 @@ final class PyroThemeLoaderPrinter implements NodePrinterInterface
 
         return false;
     }
+
     public function print(Node $node, PrinterInterface $printer): string
     {
+        if (! $node instanceof MethodCall) {
+            return '';
+        }
+
         $args = array_map(fn($arg) => $printer->convertNode($arg->value), $node->args);
         return "{# TODO: replace theme with include #}\n{{ theme:partial name=" . $args[0] . " }}";
     }
-
 }

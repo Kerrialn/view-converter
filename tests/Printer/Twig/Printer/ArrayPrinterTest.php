@@ -4,16 +4,16 @@ namespace ViewConverterTest\Printer\Twig\Printer;
 
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
+use PHPUnit\Framework\TestCase;
 use ViewConverter\Printer\Twig\Printer\ArrayPrinter;
 use ViewConverter\Printer\Twig\Printer\EchoPrinter;
 use ViewConverter\Printer\Twig\Printer\ScalarPrinter;
 use ViewConverter\Printer\Twig\Printer\StringPrinter;
 use ViewConverter\Printer\Twig\TwigPrinter;
-use PHPUnit\Framework\TestCase;
 
 class ArrayPrinterTest extends TestCase
 {
-    public function testArrayIsConvertedToTwigObject()
+    public function testArrayIsConvertedToTwigObject(): void
     {
         $code = <<<PHP
 <?php echo array('foo' => 'bar', 'baz' => 42);
@@ -28,7 +28,6 @@ PHP;
             new ScalarPrinter(),
             new StringPrinter(),
         ]);
-
 
         $output = $printer->print($stmts);
 

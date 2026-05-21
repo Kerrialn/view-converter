@@ -8,6 +8,9 @@ use PhpParser\Node\Name;
 
 interface PrinterInterface
 {
+    /**
+     * @param Node[] $nodes
+     */
     public function print(array $nodes): string;
 
     public function convertNode(Node $node): string;

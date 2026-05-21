@@ -4,14 +4,14 @@ namespace ViewConverterTest\Printer\Twig\Printer;
 
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
+use PHPUnit\Framework\TestCase;
 use ViewConverter\Printer\Twig\Printer\EchoPrinter;
 use ViewConverter\Printer\Twig\Printer\TransPrinter;
 use ViewConverter\Printer\Twig\TwigPrinter;
-use PHPUnit\Framework\TestCase;
 
 class TransPrinterTest extends TestCase
 {
-    public function testTranslateLangChainConvertsToTrans()
+    public function testTranslateLangChainConvertsToTrans(): void
     {
         $code = <<<PHP
 <?php echo translate(lang('bbevents:club_events:btn:return_to_event_page'));

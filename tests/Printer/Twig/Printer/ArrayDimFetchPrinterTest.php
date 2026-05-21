@@ -4,6 +4,7 @@ namespace ViewConverterTest\Printer\Twig\Printer;
 
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
+use PHPUnit\Framework\TestCase;
 use ViewConverter\Printer\Twig\Printer\ArrayDimFetchPrinter;
 use ViewConverter\Printer\Twig\Printer\BinaryOpPrinter;
 use ViewConverter\Printer\Twig\Printer\EchoPrinter;
@@ -12,11 +13,10 @@ use ViewConverter\Printer\Twig\Printer\IfPrinter;
 use ViewConverter\Printer\Twig\Printer\StringPrinter;
 use ViewConverter\Printer\Twig\Printer\VariablePrinter;
 use ViewConverter\Printer\Twig\TwigPrinter;
-use PHPUnit\Framework\TestCase;
 
 class ArrayDimFetchPrinterTest extends TestCase
 {
-    public function testArrayDimFetchIsConvertedToTwigDotSyntax()
+    public function testArrayDimFetchIsConvertedToTwigDotSyntax(): void
     {
         $code = <<<PHP
 <?php
@@ -42,7 +42,7 @@ PHP;
         $this->assertStringContainsString("eventData.title", $output);
     }
 
-    public function testArrayAccessIsPrinted()
+    public function testArrayAccessIsPrinted(): void
     {
         $code = <<<PHP
 <?php echo \$eventData['title'];
@@ -65,5 +65,4 @@ PHP;
 
         $this->assertStringContainsString("eventData.title", $output);
     }
-
 }

@@ -4,10 +4,10 @@ namespace ViewConverterTest\Printer\Twig\Printer;
 
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
+use PHPUnit\Framework\TestCase;
 use ViewConverter\Printer\Twig\Printer\ConstFetchPrinter;
 use ViewConverter\Printer\Twig\Printer\EchoPrinter;
 use ViewConverter\Printer\Twig\TwigPrinter;
-use PHPUnit\Framework\TestCase;
 
 class ConstFetchPrinterTest extends TestCase
 {
@@ -33,6 +33,9 @@ PHP;
         $this->assertSame("{{ $expectedTwig }}", trim($output));
     }
 
+    /**
+     * @return array<string, array{string, string}>
+     */
     public static function constFetchProvider(): array
     {
         return [

@@ -3,7 +3,6 @@
 namespace ViewConverter\Printer\Twig\Printer;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\Cast\Object_;
 use ViewConverter\Printer\Contract\NodePrinterInterface;
 use ViewConverter\Printer\Contract\PrinterInterface;
 
@@ -16,6 +15,10 @@ final class CastPrinter implements NodePrinterInterface
 
     public function print(Node $node, PrinterInterface $printer): string
     {
+        if (! $node instanceof Node\Expr\Cast) {
+            return '';
+        }
+
         return $printer->convertNode($node->expr);
     }
 }

@@ -43,5 +43,4 @@ final class TransPrinter implements NodePrinterInterface
 
         return "trans('$key')";
     }
-
 }

@@ -2,8 +2,8 @@
 
 namespace ViewConverterTest\Printer\Blade\Pattern;
 
-use ViewConverter\Printer\Blade\Pattern\SwitchPattern;
 use PHPUnit\Framework\TestCase;
+use ViewConverter\Printer\Blade\Pattern\SwitchPattern;
 
 class SwitchPatternTest extends TestCase
 {

@@ -4,16 +4,16 @@ namespace ViewConverterTest\Printer\Twig\Printer;
 
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
+use PHPUnit\Framework\TestCase;
 use ViewConverter\Printer\Twig\Printer\EchoPrinter;
 use ViewConverter\Printer\Twig\Printer\MethodCallPrinter;
-use ViewConverter\Printer\Twig\Printer\VariablePrinter;
 use ViewConverter\Printer\Twig\Printer\StringPrinter;
+use ViewConverter\Printer\Twig\Printer\VariablePrinter;
 use ViewConverter\Printer\Twig\TwigPrinter;
-use PHPUnit\Framework\TestCase;
 
 class MethodCallPrinterTest extends TestCase
 {
-    public function testSimpleMethodCallIsConvertedCorrectly()
+    public function testSimpleMethodCallIsConvertedCorrectly(): void
     {
         $code = <<<PHP
 <?php echo \$user->getName();
@@ -33,7 +33,7 @@ PHP;
         $this->assertSame("{{ user.getName() }}", trim($output));
     }
 
-    public function testMethodCallWithArgumentsIsConvertedCorrectly()
+    public function testMethodCallWithArgumentsIsConvertedCorrectly(): void
     {
         $code = <<<PHP
 <?php echo \$user->greet('friend');

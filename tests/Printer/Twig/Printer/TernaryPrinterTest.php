@@ -4,13 +4,13 @@ namespace ViewConverterTest\Printer\Twig\Printer;
 
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
+use PHPUnit\Framework\TestCase;
 use ViewConverter\Printer\Twig\Printer\ConstFetchPrinter;
 use ViewConverter\Printer\Twig\Printer\EchoPrinter;
 use ViewConverter\Printer\Twig\Printer\ScalarPrinter;
 use ViewConverter\Printer\Twig\Printer\TernaryPrinter;
 use ViewConverter\Printer\Twig\Printer\VariablePrinter;
 use ViewConverter\Printer\Twig\TwigPrinter;
-use PHPUnit\Framework\TestCase;
 
 class TernaryPrinterTest extends TestCase
 {
@@ -39,6 +39,9 @@ PHP;
         $this->assertSame("{{ $expectedTwigOutput }}", trim($output));
     }
 
+    /**
+     * @return array<string, array{string, string}>
+     */
     public static function ternaryProvider(): array
     {
         return [

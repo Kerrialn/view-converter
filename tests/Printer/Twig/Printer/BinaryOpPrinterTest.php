@@ -4,11 +4,11 @@ namespace ViewConverterTest\Printer\Twig\Printer;
 
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
+use PHPUnit\Framework\TestCase;
 use ViewConverter\Printer\Twig\Printer\BinaryOpPrinter;
 use ViewConverter\Printer\Twig\Printer\EchoPrinter;
 use ViewConverter\Printer\Twig\Printer\ScalarPrinter;
 use ViewConverter\Printer\Twig\TwigPrinter;
-use PHPUnit\Framework\TestCase;
 
 class BinaryOpPrinterTest extends TestCase
 {
@@ -36,7 +36,7 @@ PHP;
     }
 
     /**
-     * @return string[]
+     * @return list<array{string, string}>
      */
     public static function binaryOpProvider(): array
     {

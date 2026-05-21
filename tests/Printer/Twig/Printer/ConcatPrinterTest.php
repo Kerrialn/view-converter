@@ -4,15 +4,15 @@ namespace ViewConverterTest\Printer\Twig\Printer;
 
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
+use PHPUnit\Framework\TestCase;
 use ViewConverter\Printer\Twig\Printer\ConcatPrinter;
 use ViewConverter\Printer\Twig\Printer\EchoPrinter;
 use ViewConverter\Printer\Twig\Printer\ScalarPrinter;
 use ViewConverter\Printer\Twig\TwigPrinter;
-use PHPUnit\Framework\TestCase;
 
 class ConcatPrinterTest extends TestCase
 {
-    public function testConcatIsConvertedToTildeOperator()
+    public function testConcatIsConvertedToTildeOperator(): void
     {
         $code = <<<PHP
 <?php echo 'Hello' . 'World';

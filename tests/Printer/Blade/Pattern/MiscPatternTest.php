@@ -2,8 +2,8 @@
 
 namespace ViewConverterTest\Printer\Blade\Pattern;
 
-use ViewConverter\Printer\Blade\Pattern\MiscPattern;
 use PHPUnit\Framework\TestCase;
+use ViewConverter\Printer\Blade\Pattern\MiscPattern;
 
 class MiscPatternTest extends TestCase
 {
@@ -16,7 +16,7 @@ class MiscPatternTest extends TestCase
 
     public function testVerbatimBlockIsConverted(): void
     {
-        $input  = "@verbatim\n{{ raw }}\n@endverbatim";
+        $input = "@verbatim\n{{ raw }}\n@endverbatim";
         $output = $this->pattern->apply($input);
 
         $this->assertStringContainsString('{% verbatim %}', $output);

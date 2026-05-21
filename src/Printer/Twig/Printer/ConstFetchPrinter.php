@@ -16,6 +16,10 @@ final class ConstFetchPrinter implements NodePrinterInterface
 
     public function print(Node $node, PrinterInterface $printer): string
     {
+        if (! $node instanceof ConstFetch) {
+            return '';
+        }
+
         return strtolower((string) $node->name);
     }
 }

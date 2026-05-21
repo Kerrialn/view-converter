@@ -4,17 +4,17 @@ namespace ViewConverterTest\Printer\Twig\Printer;
 
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
+use PHPUnit\Framework\TestCase;
 use ViewConverter\Printer\Twig\Printer\EchoPrinter;
 use ViewConverter\Printer\Twig\Printer\ScalarPrinter;
 use ViewConverter\Printer\Twig\TwigPrinter;
-use PHPUnit\Framework\TestCase;
 
 class ScalarPrinterTest extends TestCase
 {
     /**
      * @dataProvider scalarProvider
      */
-    public function testScalarValuesArePrintedCorrectly(string $phpExpr, string $expectedTwigOutput)
+    public function testScalarValuesArePrintedCorrectly(string $phpExpr, string $expectedTwigOutput): void
     {
         $code = <<<PHP
 <?php echo $phpExpr;
@@ -33,6 +33,9 @@ PHP;
         $this->assertSame("{{ $expectedTwigOutput }}", trim($output));
     }
 
+    /**
+     * @return array<string, array{string, string}>
+     */
     public static function scalarProvider(): array
     {
         return [

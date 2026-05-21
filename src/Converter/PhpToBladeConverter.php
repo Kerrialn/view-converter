@@ -40,16 +40,16 @@ class PhpToBladeConverter
         $inner = self::INNER;
 
         $replacements = [
-            "/\<\?php\s+if\s*\(({$inner}*?)\)\s*:\s*\?>/"      => '@if($1)',
-            "/\<\?php\s+elseif\s*\(({$inner}*?)\)\s*:\s*\?>/"  => '@elseif($1)',
-            '/\<\?php\s+else\s*:\s*\?>/'                         => '@else',
-            '/\<\?php\s+endif\s*;?\s*\?>/'                       => '@endif',
+            "/\<\?php\s+if\s*\(({$inner}*?)\)\s*:\s*\?>/" => '@if($1)',
+            "/\<\?php\s+elseif\s*\(({$inner}*?)\)\s*:\s*\?>/" => '@elseif($1)',
+            '/\<\?php\s+else\s*:\s*\?>/' => '@else',
+            '/\<\?php\s+endif\s*;?\s*\?>/' => '@endif',
             "/\<\?php\s+foreach\s*\(({$inner}*?)\)\s*:\s*\?>/" => '@foreach($1)',
-            '/\<\?php\s+endforeach\s*;?\s*\?>/'                 => '@endforeach',
-            "/\<\?php\s+for\s*\(({$inner}*?)\)\s*:\s*\?>/"     => '@for($1)',
-            '/\<\?php\s+endfor\s*;?\s*\?>/'                     => '@endfor',
-            "/\<\?php\s+while\s*\(({$inner}*?)\)\s*:\s*\?>/"   => '@while($1)',
-            '/\<\?php\s+endwhile\s*;?\s*\?>/'                   => '@endwhile',
+            '/\<\?php\s+endforeach\s*;?\s*\?>/' => '@endforeach',
+            "/\<\?php\s+for\s*\(({$inner}*?)\)\s*:\s*\?>/" => '@for($1)',
+            '/\<\?php\s+endfor\s*;?\s*\?>/' => '@endfor',
+            "/\<\?php\s+while\s*\(({$inner}*?)\)\s*:\s*\?>/" => '@while($1)',
+            '/\<\?php\s+endwhile\s*;?\s*\?>/' => '@endwhile',
         ];
 
         foreach ($replacements as $pattern => $replacement) {

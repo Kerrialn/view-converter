@@ -2,8 +2,8 @@
 
 namespace ViewConverterTest\Printer\Blade\Pattern;
 
-use ViewConverter\Printer\Blade\Pattern\PhpBlockPattern;
 use PHPUnit\Framework\TestCase;
+use ViewConverter\Printer\Blade\Pattern\PhpBlockPattern;
 
 class PhpBlockPatternTest extends TestCase
 {
@@ -16,7 +16,7 @@ class PhpBlockPatternTest extends TestCase
 
     public function testPhpBlockIsReplacedWithComment(): void
     {
-        $input  = "@php\n\$x = 1;\n@endphp";
+        $input = "@php\n\$x = 1;\n@endphp";
         $this->assertSame('{# PHP block - review manually #}', $this->pattern->apply($input));
     }
 

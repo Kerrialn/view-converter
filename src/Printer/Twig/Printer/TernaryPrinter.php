@@ -16,6 +16,10 @@ final class TernaryPrinter implements NodePrinterInterface
 
     public function print(Node $node, PrinterInterface $printer): string
     {
+        if (! $node instanceof Ternary) {
+            return '';
+        }
+
         $cond = $printer->convertNode($node->cond);
         $if = $node->if !== null ? $printer->convertNode($node->if) : 'null';
         $else = $printer->convertNode($node->else);

@@ -24,9 +24,7 @@ final class IncludesPattern implements BladePatternInterface
         }, $content);
 
         // @includeIf('partial') → {% include 'partial' ignore missing %}
-        $content = preg_replace_callback('/@includeIf\([\'"](.+?)[\'"]\)/', function ($m) {
-            return "{% include '" . BladeExpressionHelper::convertPath($m[1]) . "' ignore missing %}";
-        }, $content);
+        $content = preg_replace_callback('/@includeIf\([\'"](.+?)[\'"]\)/', fn($m) => "{% include '" . BladeExpressionHelper::convertPath($m[1]) . "' ignore missing %}", $content);
 
         // @include('partial', ['key' => 'val']) → {% include 'partial' with {key: 'val'} %}
         $content = preg_replace_callback('/@include\([\'"](.+?)[\'"]\s*,\s*(\[.+?\])\)/s', function ($m) {
@@ -36,9 +34,7 @@ final class IncludesPattern implements BladePatternInterface
         }, $content);
 
         // @include('partial') → {% include 'partial' %}
-        $content = preg_replace_callback('/@include\([\'"](.+?)[\'"]\)/', function ($m) {
-            return "{% include '" . BladeExpressionHelper::convertPath($m[1]) . "' %}";
-        }, $content);
+        $content = preg_replace_callback('/@include\([\'"](.+?)[\'"]\)/', fn($m) => "{% include '" . BladeExpressionHelper::convertPath($m[1]) . "' %}", $content);
 
         return $content;
     }

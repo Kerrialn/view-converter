@@ -16,7 +16,10 @@ final class VariablePrinter implements NodePrinterInterface
 
     public function print(Node $node, PrinterInterface $printer): string
     {
-        return $node->name;
-    }
+        if (! $node instanceof Variable) {
+            return '';
+        }
 
+        return (string) $node->name;
+    }
 }

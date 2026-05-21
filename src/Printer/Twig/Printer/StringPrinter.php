@@ -13,6 +13,7 @@ final class StringPrinter implements NodePrinterInterface
     {
         return $node instanceof String_;
     }
+
     public function print(Node $node, PrinterInterface $printer): string
     {
         if ($node instanceof Node\Scalar\String_) {
@@ -21,6 +22,4 @@ final class StringPrinter implements NodePrinterInterface
 
         return '{# unsupported node: ' . get_class($node) . ' #}';
     }
-
-
 }

@@ -4,17 +4,17 @@ namespace ViewConverterTest\Printer\Twig\Printer;
 
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
+use PHPUnit\Framework\TestCase;
 use ViewConverter\Printer\Twig\Printer\EchoPrinter;
 use ViewConverter\Printer\Twig\Printer\IfPrinter;
 use ViewConverter\Printer\Twig\Printer\IssetPrinter;
 use ViewConverter\Printer\Twig\Printer\ScalarPrinter;
 use ViewConverter\Printer\Twig\Printer\VariablePrinter;
 use ViewConverter\Printer\Twig\TwigPrinter;
-use PHPUnit\Framework\TestCase;
 
 class IssetPrinterTest extends TestCase
 {
-    public function testIssetConvertsToIsDefinedCheck()
+    public function testIssetConvertsToIsDefinedCheck(): void
     {
         $code = <<<PHP
 <?php if (isset(\$user)) { echo 'hi'; }
@@ -24,7 +24,7 @@ PHP;
         $this->assertStringContainsString('{% if user is defined %}', $output);
     }
 
-    public function testMultipleIssetConvertsToAndChain()
+    public function testMultipleIssetConvertsToAndChain(): void
     {
         $code = <<<PHP
 <?php if (isset(\$a, \$b)) { echo 'ok'; }
@@ -34,6 +34,9 @@ PHP;
         $this->assertStringContainsString('a is defined and b is defined', $output);
     }
 
+    /**
+     * @return \PhpParser\Node\Stmt[]
+     */
     private function parse(string $code): array
     {
         $parser = (new ParserFactory())->createForVersion(PhpVersion::fromString('7.4'));

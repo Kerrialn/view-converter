@@ -4,15 +4,18 @@ namespace ViewConverter\Util;
 
 final class BladeExpressionHelper
 {
+    /**
+     * @var array<string, string>
+     */
     private static array $loopMap = [
         '$loop->iteration' => 'loop.index',
-        '$loop->index'     => 'loop.index0',
+        '$loop->index' => 'loop.index0',
         '$loop->remaining' => '(loop.length - loop.index)',
-        '$loop->count'     => 'loop.length',
-        '$loop->first'     => 'loop.first',
-        '$loop->last'      => 'loop.last',
-        '$loop->depth'     => 'loop.depth',
-        '$loop->parent'    => 'loop.parent',
+        '$loop->count' => 'loop.length',
+        '$loop->first' => 'loop.first',
+        '$loop->last' => 'loop.last',
+        '$loop->depth' => 'loop.depth',
+        '$loop->parent' => 'loop.parent',
     ];
 
     public static function convertExpr(string $expr): string
@@ -28,9 +31,7 @@ final class BladeExpressionHelper
         $expr = str_replace(array_keys(self::$loopMap), array_values(self::$loopMap), $expr);
 
         // count($var) → var|length
-        $expr = preg_replace_callback('/\bcount\s*\(\s*\$([a-zA-Z_]\w*)\s*\)/', function ($m) {
-            return $m[1] . '|length';
-        }, $expr);
+        $expr = preg_replace_callback('/\bcount\s*\(\s*\$([a-zA-Z_]\w*)\s*\)/', fn($m) => $m[1] . '|length', $expr);
 
         // PHP comparison/logical operators
         $expr = str_replace(['===', '!=='], ['==', '!='], $expr);
@@ -38,12 +39,8 @@ final class BladeExpressionHelper
         $expr = preg_replace('/!(?!=)/', 'not ', $expr);
 
         // Array access: $var['key'] or $var["key"] → var.key
-        $expr = preg_replace_callback('/\$([a-zA-Z_]\w*)\[\'([^\']+)\'\]/', function ($m) {
-            return $m[1] . '.' . $m[2];
-        }, $expr);
-        $expr = preg_replace_callback('/\$([a-zA-Z_]\w*)\["([^"]+)"\]/', function ($m) {
-            return $m[1] . '.' . $m[2];
-        }, $expr);
+        $expr = preg_replace_callback('/\$([a-zA-Z_]\w*)\[\'([^\']+)\'\]/', fn($m) => $m[1] . '.' . $m[2], $expr);
+        $expr = preg_replace_callback('/\$([a-zA-Z_]\w*)\["([^"]+)"\]/', fn($m) => $m[1] . '.' . $m[2], $expr);
 
         // Property/method chain: $obj->prop->sub, $obj->method()
         $expr = preg_replace_callback(
@@ -89,11 +86,11 @@ final class BladeExpressionHelper
     public static function forStatement(string $iterable, string $vars): string
     {
         $iterable = self::convertExpr(trim($iterable));
-        $vars     = trim($vars);
+        $vars = trim($vars);
 
         if (strpos($vars, '=>') !== false) {
             [$key, $value] = explode('=>', $vars, 2);
-            $key   = ltrim(trim($key), '$');
+            $key = ltrim(trim($key), '$');
             $value = ltrim(trim($value), '$');
             return "{% for $key, $value in $iterable %}";
         }

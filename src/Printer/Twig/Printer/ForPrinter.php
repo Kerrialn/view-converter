@@ -48,7 +48,7 @@ final class ForPrinter implements NodePrinterInterface
         $cond = $node->cond[0];
         $loop = $node->loop[0];
 
-        if (!$init instanceof Assign || !$init->var instanceof Variable) {
+        if (! $init instanceof Assign || ! $init->var instanceof Variable) {
             return null;
         }
 
@@ -74,7 +74,7 @@ final class ForPrinter implements NodePrinterInterface
             && $loop->var instanceof Variable
             && $loop->var->name === $varName;
 
-        if (!$isIncrement) {
+        if (! $isIncrement) {
             return null;
         }
 

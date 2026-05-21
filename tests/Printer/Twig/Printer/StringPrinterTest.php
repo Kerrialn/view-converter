@@ -4,14 +4,14 @@ namespace ViewConverterTest\Printer\Twig\Printer;
 
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
+use PHPUnit\Framework\TestCase;
 use ViewConverter\Printer\Twig\Printer\EchoPrinter;
 use ViewConverter\Printer\Twig\Printer\StringPrinter;
 use ViewConverter\Printer\Twig\TwigPrinter;
-use PHPUnit\Framework\TestCase;
 
 class StringPrinterTest extends TestCase
 {
-    public function testSingleQuotedStringIsPrintedWithoutModification()
+    public function testSingleQuotedStringIsPrintedWithoutModification(): void
     {
         $code = <<<PHP
         <?php echo 'hello';
@@ -29,5 +29,4 @@ class StringPrinterTest extends TestCase
 
         $this->assertSame("{{ 'hello' }}", trim($output));
     }
-
 }

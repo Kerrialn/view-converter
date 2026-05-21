@@ -9,8 +9,6 @@ class ParserHelper
 {
     /**
      * @param Name|Expr|string|null $nameNode
-     * @param callable $exprToString
-     * @return string
      */
     public static function getCallableName($nameNode, callable $exprToString): string
     {
@@ -28,5 +26,4 @@ class ParserHelper
 
         return (string) $nameNode;
     }
-
 }

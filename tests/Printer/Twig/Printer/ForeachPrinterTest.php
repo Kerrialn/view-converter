@@ -4,15 +4,15 @@ namespace ViewConverterTest\Printer\Twig\Printer;
 
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
+use PHPUnit\Framework\TestCase;
 use ViewConverter\Printer\Twig\Printer\EchoPrinter;
 use ViewConverter\Printer\Twig\Printer\ForeachPrinter;
 use ViewConverter\Printer\Twig\Printer\VariablePrinter;
 use ViewConverter\Printer\Twig\TwigPrinter;
-use PHPUnit\Framework\TestCase;
 
 class ForeachPrinterTest extends TestCase
 {
-    public function testBasicForeachIsConvertedToTwigSyntax()
+    public function testBasicForeachIsConvertedToTwigSyntax(): void
     {
         $code = <<<PHP
 <?php
@@ -37,7 +37,7 @@ PHP;
         $this->assertStringContainsString('{% endfor %}', $output);
     }
 
-    public function testKeyValueForeachIsConvertedToTwigSyntax()
+    public function testKeyValueForeachIsConvertedToTwigSyntax(): void
     {
         $code = <<<PHP
 <?php

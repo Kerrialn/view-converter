@@ -16,6 +16,10 @@ final class BinaryOpPrinter implements NodePrinterInterface
 
     public function print(Node $node, PrinterInterface $printer): string
     {
+        if (! $node instanceof BinaryOp) {
+            return '';
+        }
+
         $left = $printer->convertNode($node->left);
         $right = $printer->convertNode($node->right);
 

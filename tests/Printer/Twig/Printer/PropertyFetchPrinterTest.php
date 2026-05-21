@@ -4,15 +4,15 @@ namespace ViewConverterTest\Printer\Twig\Printer;
 
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
+use PHPUnit\Framework\TestCase;
 use ViewConverter\Printer\Twig\Printer\EchoPrinter;
 use ViewConverter\Printer\Twig\Printer\PropertyFetchPrinter;
 use ViewConverter\Printer\Twig\Printer\VariablePrinter;
 use ViewConverter\Printer\Twig\TwigPrinter;
-use PHPUnit\Framework\TestCase;
 
 class PropertyFetchPrinterTest extends TestCase
 {
-    public function testSimplePropertyFetchIsConvertedCorrectly()
+    public function testSimplePropertyFetchIsConvertedCorrectly(): void
     {
         $code = <<<PHP
 <?php echo \$eventData->title;
@@ -32,7 +32,7 @@ PHP;
         $this->assertSame("{{ eventData.title }}", trim($output));
     }
 
-    public function testNestedPropertyFetchIsConvertedCorrectly()
+    public function testNestedPropertyFetchIsConvertedCorrectly(): void
     {
         $code = <<<PHP
 <?php echo \$user->profile->email;

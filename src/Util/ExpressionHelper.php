@@ -14,8 +14,6 @@ final class ExpressionHelper
 {
     /**
      * @param Name|Expr|null $expr
-     * @param PrinterInterface $printer
-     * @return string
      */
     public static function toString($expr, PrinterInterface $printer): string
     {

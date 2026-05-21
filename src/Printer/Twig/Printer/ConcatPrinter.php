@@ -16,6 +16,10 @@ final class ConcatPrinter implements NodePrinterInterface
 
     public function print(Node $node, PrinterInterface $printer): string
     {
+        if (! $node instanceof Concat) {
+            return '';
+        }
+
         return $printer->convertNode($node->left) . ' ~ ' . $printer->convertNode($node->right);
     }
 }

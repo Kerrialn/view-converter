@@ -11,9 +11,7 @@ final class MiscPattern implements BladePatternInterface
     {
         $content = str_replace(['@verbatim', '@endverbatim'], ['{% verbatim %}', '{% endverbatim %}'], $content);
 
-        $content = preg_replace_callback('/@json\s*\((.+?)\)/', function ($m) {
-            return '{{ ' . BladeExpressionHelper::convertExpr(trim($m[1])) . '|json_encode }}';
-        }, $content);
+        $content = preg_replace_callback('/@json\s*\((.+?)\)/', fn($m) => '{{ ' . BladeExpressionHelper::convertExpr(trim($m[1])) . '|json_encode }}', $content);
 
         $content = str_replace('@csrf', '{# @csrf - handle via form_tag or meta tag #}', $content);
         $content = preg_replace('/@method\([\'"][A-Z]+[\'"]\)/', '{# @method - handle via _method field #}', $content);

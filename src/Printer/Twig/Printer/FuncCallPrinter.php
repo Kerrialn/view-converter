@@ -17,6 +17,10 @@ final class FuncCallPrinter implements NodePrinterInterface
 
     public function print(Node $node, PrinterInterface $printer): string
     {
+        if (! $node instanceof FuncCall) {
+            return '';
+        }
+
         $name = ParserHelper::getCallableName($node->name, [$printer, 'exprToString']);
         $args = array_map(
             fn($arg) => $printer->convertNode($arg->value),

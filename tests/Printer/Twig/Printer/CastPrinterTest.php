@@ -4,11 +4,11 @@ namespace ViewConverterTest\Printer\Twig\Printer;
 
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
+use PHPUnit\Framework\TestCase;
 use ViewConverter\Printer\Twig\Printer\CastPrinter;
 use ViewConverter\Printer\Twig\Printer\EchoPrinter;
 use ViewConverter\Printer\Twig\Printer\VariablePrinter;
 use ViewConverter\Printer\Twig\TwigPrinter;
-use PHPUnit\Framework\TestCase;
 
 class CastPrinterTest extends TestCase
 {
@@ -31,6 +31,9 @@ class CastPrinterTest extends TestCase
         $this->assertSame("{{ $expected }}", trim($output));
     }
 
+    /**
+     * @return list<array{string, string}>
+     */
     public static function castProvider(): array
     {
         return [

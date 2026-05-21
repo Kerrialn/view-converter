@@ -18,9 +18,14 @@ use ViewConverter\Printer\Contract\BladePatternInterface;
 
 final class BladePrinter
 {
-    /** @var BladePatternInterface[] */
+    /**
+     * @var BladePatternInterface[]
+     */
     private array $patterns;
 
+    /**
+     * @param BladePatternInterface[] $patterns
+     */
     public function __construct(array $patterns = [])
     {
         $this->patterns = $patterns ?: self::defaultPatterns();
@@ -34,6 +39,9 @@ final class BladePrinter
         return $content;
     }
 
+    /**
+     * @return BladePatternInterface[]
+     */
     public static function defaultPatterns(): array
     {
         return [

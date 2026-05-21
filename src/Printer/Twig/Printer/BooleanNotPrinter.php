@@ -16,6 +16,10 @@ final class BooleanNotPrinter implements NodePrinterInterface
 
     public function print(Node $node, PrinterInterface $printer): string
     {
+        if (! $node instanceof BooleanNot) {
+            return '';
+        }
+
         return 'not ' . $printer->convertNode($node->expr);
     }
 }

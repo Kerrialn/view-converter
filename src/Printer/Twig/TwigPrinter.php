@@ -18,8 +18,8 @@ use ViewConverter\Printer\Twig\Printer\ConstFetchPrinter;
 use ViewConverter\Printer\Twig\Printer\EchoPrinter;
 use ViewConverter\Printer\Twig\Printer\EmptyCheckPrinter;
 use ViewConverter\Printer\Twig\Printer\ExpressionPrinter;
-use ViewConverter\Printer\Twig\Printer\ForPrinter;
 use ViewConverter\Printer\Twig\Printer\ForeachPrinter;
+use ViewConverter\Printer\Twig\Printer\ForPrinter;
 use ViewConverter\Printer\Twig\Printer\FuncCallPrinter;
 use ViewConverter\Printer\Twig\Printer\IfPrinter;
 use ViewConverter\Printer\Twig\Printer\InlineHtmlPrinter;
@@ -39,14 +39,22 @@ use ViewConverter\Util\ExpressionHelper;
 
 final class TwigPrinter implements PrinterInterface
 {
-    /** @var NodePrinterInterface[] */
+    /**
+     * @var NodePrinterInterface[]
+     */
     private array $nodePrinters;
 
+    /**
+     * @param NodePrinterInterface[] $nodePrinters
+     */
     public function __construct(array $nodePrinters = [])
     {
         $this->nodePrinters = $nodePrinters ?: self::defaultPrinters();
     }
 
+    /**
+     * @param Node[] $nodes
+     */
     public function print(array $nodes): string
     {
         return implode("\n", array_map([$this, 'convertNode'], $nodes));
@@ -71,6 +79,9 @@ final class TwigPrinter implements PrinterInterface
         return ExpressionHelper::toString($expr, $this);
     }
 
+    /**
+     * @return NodePrinterInterface[]
+     */
     public static function defaultPrinters(): array
     {
         return [

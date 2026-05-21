@@ -4,6 +4,7 @@ namespace ViewConverterTest\Printer\Twig\Printer;
 
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
+use PHPUnit\Framework\TestCase;
 use ViewConverter\Printer\Twig\Printer\ArrayPrinter;
 use ViewConverter\Printer\Twig\Printer\EchoPrinter;
 use ViewConverter\Printer\Twig\Printer\MethodCallPrinter;
@@ -13,11 +14,10 @@ use ViewConverter\Printer\Twig\Printer\StringPrinter;
 use ViewConverter\Printer\Twig\Printer\VariablePrinter;
 use ViewConverter\Printer\Twig\Printer\ViewLoaderPrinter;
 use ViewConverter\Printer\Twig\TwigPrinter;
-use PHPUnit\Framework\TestCase;
 
 class ViewLoaderPrinterTest extends TestCase
 {
-    public function testViewLoaderIsConvertedToTwigInclude()
+    public function testViewLoaderIsConvertedToTwigInclude(): void
     {
         $code = <<<PHP
 <?php echo \$this->load->view('my/view', array('key' => 'value'));

@@ -4,16 +4,16 @@ namespace ViewConverterTest\Printer\Twig\Printer;
 
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
-use ViewConverter\Printer\Twig\Printer\IfPrinter;
-use ViewConverter\Printer\Twig\Printer\EchoPrinter;
-use ViewConverter\Printer\Twig\Printer\ScalarPrinter;
-use ViewConverter\Printer\Twig\Printer\BinaryOpPrinter;
-use ViewConverter\Printer\Twig\TwigPrinter;
 use PHPUnit\Framework\TestCase;
+use ViewConverter\Printer\Twig\Printer\BinaryOpPrinter;
+use ViewConverter\Printer\Twig\Printer\EchoPrinter;
+use ViewConverter\Printer\Twig\Printer\IfPrinter;
+use ViewConverter\Printer\Twig\Printer\ScalarPrinter;
+use ViewConverter\Printer\Twig\TwigPrinter;
 
 class IfPrinterTest extends TestCase
 {
-    public function testSimpleIfIsConverted()
+    public function testSimpleIfIsConverted(): void
     {
         $code = <<<PHP
 <?php if (true) { echo 'yes'; }
@@ -31,7 +31,7 @@ TWIG;
         $this->assertSame(trim($expected), trim($printer->print($stmts)));
     }
 
-    public function testIfElseIsConverted()
+    public function testIfElseIsConverted(): void
     {
         $code = <<<PHP
 <?php if (true) { echo 'yes'; } else { echo 'no'; }
@@ -51,7 +51,7 @@ TWIG;
         $this->assertSame(trim($expected), trim($printer->print($stmts)));
     }
 
-    public function testIfElseIfIsConverted()
+    public function testIfElseIfIsConverted(): void
     {
         $code = <<<PHP
 <?php if (false) { echo 'no'; } elseif (true) { echo 'maybe'; }
@@ -71,7 +71,7 @@ TWIG;
         $this->assertSame(trim($expected), trim($printer->print($stmts)));
     }
 
-    public function testFullIfElseIfElse()
+    public function testFullIfElseIfElse(): void
     {
         $code = <<<PHP
 <?php if (false) { echo 'no'; } elseif (false) { echo 'maybe'; } else { echo 'yes'; }
@@ -93,6 +93,9 @@ TWIG;
         $this->assertSame(trim($expected), trim($printer->print($stmts)));
     }
 
+    /**
+     * @return \PhpParser\Node\Stmt[]
+     */
     private function parse(string $code): array
     {
         $parser = (new ParserFactory())->createForVersion(PhpVersion::fromString('7.4'));

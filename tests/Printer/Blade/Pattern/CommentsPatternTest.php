@@ -2,8 +2,8 @@
 
 namespace ViewConverterTest\Printer\Blade\Pattern;
 
-use ViewConverter\Printer\Blade\Pattern\CommentsPattern;
 use PHPUnit\Framework\TestCase;
+use ViewConverter\Printer\Blade\Pattern\CommentsPattern;
 
 class CommentsPatternTest extends TestCase
 {
@@ -21,7 +21,7 @@ class CommentsPatternTest extends TestCase
 
     public function testMultilineCommentIsConverted(): void
     {
-        $input    = "{{-- line one\nline two --}}";
+        $input = "{{-- line one\nline two --}}";
         $expected = "{# line one\nline two #}";
         $this->assertSame($expected, $this->pattern->apply($input));
     }

@@ -4,15 +4,15 @@ namespace ViewConverterTest\Printer\Twig\Printer;
 
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
+use PHPUnit\Framework\TestCase;
+use ViewConverter\Printer\Twig\Printer\EchoPrinter;
 use ViewConverter\Printer\Twig\Printer\FuncCallPrinter;
 use ViewConverter\Printer\Twig\Printer\ScalarPrinter;
-use ViewConverter\Printer\Twig\Printer\EchoPrinter;
 use ViewConverter\Printer\Twig\TwigPrinter;
-use PHPUnit\Framework\TestCase;
 
 class FuncCallPrinterTest extends TestCase
 {
-    public function testFunctionCallIsConvertedCorrectly()
+    public function testFunctionCallIsConvertedCorrectly(): void
     {
         $code = <<<PHP
 <?php echo strtoupper('hello');
@@ -32,7 +32,7 @@ PHP;
         $this->assertSame("{{ strtoupper('hello') }}", trim($output));
     }
 
-    public function testFunctionCallWithMultipleArgs()
+    public function testFunctionCallWithMultipleArgs(): void
     {
         $code = <<<PHP
 <?php echo substr('hello', 1);

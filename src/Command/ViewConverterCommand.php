@@ -3,8 +3,6 @@
 namespace ViewConverter\Command;
 
 use PhpParser\ParserFactory;
-use ViewConverter\Converter\PhpToBladeConverter;
-use ViewConverter\Printer\Twig\TwigPrinter;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -13,10 +11,13 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Finder\Finder;
+use ViewConverter\Converter\PhpToBladeConverter;
+use ViewConverter\Printer\Twig\TwigPrinter;
 
 class ViewConverterCommand extends Command
 {
-    private const FORMAT_TWIG  = 'twig';
+    private const FORMAT_TWIG = 'twig';
+
     private const FORMAT_BLADE = 'blade';
 
     protected function configure(): void
@@ -36,7 +37,7 @@ class ViewConverterCommand extends Command
         $dryRun = (bool) $input->getOption('dry-run');
         $deleteOriginals = (bool) $input->getOption('delete-originals');
 
-        if (!file_exists($path)) {
+        if (! file_exists($path)) {
             $io->error("Path not found: $path");
             return Command::FAILURE;
         }
@@ -53,7 +54,7 @@ class ViewConverterCommand extends Command
         }
 
         $finder = (new Finder())->in($path)->name('*.php')->notName('*.blade.php')->files();
-        $files  = iterator_to_array($finder, false);
+        $files = iterator_to_array($finder, false);
 
         if (empty($files)) {
             $io->warning("No *.php files found in $path");
@@ -78,7 +79,7 @@ class ViewConverterCommand extends Command
         $question = new ChoiceQuestion(
             'Which format would you like to convert TO?',
             [
-                self::FORMAT_TWIG  => 'Twig (*.twig)',
+                self::FORMAT_TWIG => 'Twig (*.twig)',
                 self::FORMAT_BLADE => 'Blade (*.blade.php)',
             ],
             self::FORMAT_TWIG
@@ -122,7 +123,7 @@ class ViewConverterCommand extends Command
     {
         $content = file_get_contents($filePath);
 
-        if (!$this->isPhpViewTemplate($content)) {
+        if (! $this->isPhpViewTemplate($content)) {
             $io->note('Skipped (not a view template): ' . basename($filePath));
             return null;
         }
@@ -134,7 +135,7 @@ class ViewConverterCommand extends Command
     {
         $content = file_get_contents($filePath);
 
-        if (!$this->isPhpViewTemplate($content)) {
+        if (! $this->isPhpViewTemplate($content)) {
             $io->note('Skipped (not a view template): ' . basename($filePath));
             return null;
         }

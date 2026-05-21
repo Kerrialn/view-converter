@@ -4,16 +4,16 @@ namespace ViewConverterTest\Printer\Twig\Printer;
 
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
+use PHPUnit\Framework\TestCase;
 use ViewConverter\Printer\Twig\Printer\ExpressionPrinter;
 use ViewConverter\Printer\Twig\Printer\ScalarPrinter;
 use ViewConverter\Printer\Twig\Printer\StaticCallPrinter;
 use ViewConverter\Printer\Twig\Printer\VariablePrinter;
 use ViewConverter\Printer\Twig\TwigPrinter;
-use PHPUnit\Framework\TestCase;
 
 class StaticCallPrinterTest extends TestCase
 {
-    public function testStaticCallConvertsToComment()
+    public function testStaticCallConvertsToComment(): void
     {
         $code = <<<PHP
 <?php \$x = Foo::bar('baz');
@@ -23,7 +23,7 @@ PHP;
         $this->assertStringContainsString('{# static: Foo::bar(', $output);
     }
 
-    public function testStaticCallWithNoArgsConvertsToComment()
+    public function testStaticCallWithNoArgsConvertsToComment(): void
     {
         $code = <<<PHP
 <?php \$x = Helper::getInstance();
@@ -33,6 +33,9 @@ PHP;
         $this->assertStringContainsString('{# static: Helper::getInstance() #}', $output);
     }
 
+    /**
+     * @return \PhpParser\Node\Stmt[]
+     */
     private function parse(string $code): array
     {
         $parser = (new ParserFactory())->createForVersion(PhpVersion::fromString('7.4'));

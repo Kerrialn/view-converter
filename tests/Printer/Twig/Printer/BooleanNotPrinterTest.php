@@ -4,15 +4,15 @@ namespace ViewConverterTest\Printer\Twig\Printer;
 
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
+use PHPUnit\Framework\TestCase;
 use ViewConverter\Printer\Twig\Printer\BooleanNotPrinter;
 use ViewConverter\Printer\Twig\Printer\EchoPrinter;
 use ViewConverter\Printer\Twig\Printer\VariablePrinter;
 use ViewConverter\Printer\Twig\TwigPrinter;
-use PHPUnit\Framework\TestCase;
 
 class BooleanNotPrinterTest extends TestCase
 {
-    public function testBooleanNotIsConvertedToNot()
+    public function testBooleanNotIsConvertedToNot(): void
     {
         $code = <<<PHP
 <?php echo !\$foo;
