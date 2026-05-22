@@ -6,12 +6,16 @@ class StimulusMethod
 {
     private string $name;
 
-    /** @var string[] */
+    /**
+     * @var string[]
+     */
     private array $params;
 
     private string $body;
 
-    /** @param string[] $params */
+    /**
+     * @param string[] $params
+     */
     public function __construct(string $name, array $params, string $body)
     {
         $this->name = $name;
@@ -24,7 +28,9 @@ class StimulusMethod
         return $this->name;
     }
 
-    /** @return string[] */
+    /**
+     * @return string[]
+     */
     public function getParams(): array
     {
         return $this->params;

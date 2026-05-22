@@ -47,7 +47,7 @@ class HtmlUpdater
 
         foreach ($lineMap as $lineNum => $attributes) {
             $index = $lineNum - 1;
-            if (!array_key_exists($index, $lines)) {
+            if (! array_key_exists($index, $lines)) {
                 continue;
             }
 
@@ -111,7 +111,7 @@ class HtmlUpdater
         for ($i = 0; $i < $len; $i++) {
             $c = $line[$i];
 
-            if (!$inTag) {
+            if (! $inTag) {
                 if ($c === '<' && ($i + 1) < $len && ctype_alpha($line[$i + 1])) {
                     $inTag = true;
                 }

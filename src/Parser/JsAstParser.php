@@ -16,7 +16,9 @@ class JsAstParser
         $this->parseScript = $this->nodeDir . '/parse.mjs';
     }
 
-    /** @return array<string, mixed> */
+    /**
+     * @return array<string, mixed>
+     */
     public function parse(string $jsFilePath): array
     {
         $this->ensureNodeModules();

@@ -44,7 +44,7 @@ class ControllerPrinter
         // Add stubs for any actions that have no corresponding method body
         $methodNames = array_map(fn ($m) => $m->getName(), $controller->getMethods());
         foreach ($controller->getActions() as $action) {
-            if (!in_array($action->getMethodName(), $methodNames, true)) {
+            if (! in_array($action->getMethodName(), $methodNames, true)) {
                 $lines[] = "";
                 $lines[] = "  " . $action->getMethodName() . "(event) {";
                 $lines[] = "    // TODO: migrate handler for '" . $action->getEvent() . "' on " . $action->getTargetName() . "Target";
@@ -64,7 +64,9 @@ class ControllerPrinter
         return implode("\n", $lines) . "\n";
     }
 
-    /** @return string[] */
+    /**
+     * @return string[]
+     */
     private function printMethod(StimulusMethod $method): array
     {
         $params = implode(', ', $method->getParams());

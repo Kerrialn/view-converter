@@ -34,7 +34,7 @@ class StimulusConverterCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $filePath = $input->getArgument('input');
 
-        if (!file_exists($filePath)) {
+        if (! file_exists($filePath)) {
             $io->error("File not found: $filePath");
             return Command::FAILURE;
         }
@@ -61,11 +61,21 @@ class StimulusConverterCommand extends Command
 
         // Show parse summary
         $io->definitionList(
-            ['Controller name' => $controller->getName()],
-            ['Root selector' => $controller->getRootSelector() ?? '(none)'],
-            ['Targets' => implode(', ', array_map(fn ($t) => $t->getName(), $controller->getTargets()))],
-            ['Actions' => implode(', ', array_map(fn ($a) => $a->getMethodName(), $controller->getActions()))],
-            ['Values' => implode(', ', array_map(fn ($v) => $v->getName(), $controller->getValues()))],
+            [
+                'Controller name' => $controller->getName(),
+            ],
+            [
+                'Root selector' => $controller->getRootSelector() ?? '(none)',
+            ],
+            [
+                'Targets' => implode(', ', array_map(fn ($t) => $t->getName(), $controller->getTargets())),
+            ],
+            [
+                'Actions' => implode(', ', array_map(fn ($a) => $a->getMethodName(), $controller->getActions())),
+            ],
+            [
+                'Values' => implode(', ', array_map(fn ($v) => $v->getName(), $controller->getValues())),
+            ],
         );
 
         foreach ($controller->getWarnings() as $warning) {
@@ -77,7 +87,7 @@ class StimulusConverterCommand extends Command
         if ($htmlDir !== null) {
             $io->section('Template scan: ' . $htmlDir);
 
-            if (!is_dir($htmlDir)) {
+            if (! is_dir($htmlDir)) {
                 $io->warning("html-dir not found: $htmlDir");
             } else {
                 $suggestions = (new HtmlScanner())->scan($htmlDir, $controller);
@@ -100,7 +110,7 @@ class StimulusConverterCommand extends Command
                         $io->writeln('');
                     }
 
-                    if ($input->getOption('update-html') && !$input->getOption('dry-run')) {
+                    if ($input->getOption('update-html') && ! $input->getOption('dry-run')) {
                         $modified = (new HtmlUpdater())->update($suggestions);
                         foreach ($modified as $path) {
                             $io->writeln('<info>Updated:</info> ' . $path);

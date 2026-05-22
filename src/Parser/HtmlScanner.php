@@ -12,11 +12,11 @@ class HtmlScanner
     /**
      * Scans a directory for template files and returns suggested Stimulus attribute changes.
      *
-     * @return array<int, array{file: string, line: int, original: string, suggestion: string, type: string}>
+     * @return array<int, array{file: string, line: int, original: string, suggestion: string, attribute: string, type: string}>
      */
     public function scan(string $directory, StimulusController $controller): array
     {
-        if (!is_dir($directory)) {
+        if (! is_dir($directory)) {
             return [];
         }
 
@@ -37,7 +37,7 @@ class HtmlScanner
     }
 
     /**
-     * @return array<int, array{file: string, line: int, original: string, suggestion: string, type: string}>
+     * @return array<int, array{file: string, line: int, original: string, suggestion: string, attribute: string, type: string}>
      */
     private function scanFile(string $filePath, StimulusController $controller): array
     {
@@ -55,7 +55,7 @@ class HtmlScanner
 
         foreach ($lines as $lineNumber => $lineContent) {
             foreach ($selectorMap as $selector => $meta) {
-                if (!$this->lineMatchesSelector($lineContent, $selector)) {
+                if (! $this->lineMatchesSelector($lineContent, $selector)) {
                     continue;
                 }
 

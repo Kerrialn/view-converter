@@ -10,7 +10,9 @@ use ViewConverter\Stimulus\StimulusValue;
 
 class JsToStimulusConverter
 {
-    /** @param array<string, mixed> $parsed */
+    /**
+     * @param array<string, mixed> $parsed
+     */
     public function convert(array $parsed): StimulusController
     {
         $controller = new StimulusController(

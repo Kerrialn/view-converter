@@ -8,19 +8,29 @@ class StimulusController
 
     private ?string $rootSelector;
 
-    /** @var StimulusTarget[] */
+    /**
+     * @var StimulusTarget[]
+     */
     private array $targets = [];
 
-    /** @var StimulusAction[] */
+    /**
+     * @var StimulusAction[]
+     */
     private array $actions = [];
 
-    /** @var StimulusValue[] */
+    /**
+     * @var StimulusValue[]
+     */
     private array $values = [];
 
-    /** @var StimulusMethod[] */
+    /**
+     * @var StimulusMethod[]
+     */
     private array $methods = [];
 
-    /** @var string[] */
+    /**
+     * @var string[]
+     */
     private array $warnings = [];
 
     public function __construct(string $name, ?string $rootSelector)
@@ -64,31 +74,41 @@ class StimulusController
         $this->warnings[] = $warning;
     }
 
-    /** @return StimulusTarget[] */
+    /**
+     * @return StimulusTarget[]
+     */
     public function getTargets(): array
     {
         return $this->targets;
     }
 
-    /** @return StimulusAction[] */
+    /**
+     * @return StimulusAction[]
+     */
     public function getActions(): array
     {
         return $this->actions;
     }
 
-    /** @return StimulusValue[] */
+    /**
+     * @return StimulusValue[]
+     */
     public function getValues(): array
     {
         return $this->values;
     }
 
-    /** @return StimulusMethod[] */
+    /**
+     * @return StimulusMethod[]
+     */
     public function getMethods(): array
     {
         return $this->methods;
     }
 
-    /** @return string[] */
+    /**
+     * @return string[]
+     */
     public function getWarnings(): array
     {
         return $this->warnings;
