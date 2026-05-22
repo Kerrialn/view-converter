@@ -1,0 +1,9 @@
+{
+  "name": "js-to-stimulus-parser",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "acorn": "^8.14.0"
+  }
+}
