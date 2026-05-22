@@ -1,6 +1,7 @@
 #!/usr/bin/env php
 <?php
 
+use ViewConverter\Command\JqueryConverterCommand;
 use ViewConverter\Command\StimulusConverterCommand;
 use ViewConverter\Command\ViewConverterCommand;
 use Symfony\Component\Console\Application;
@@ -27,4 +28,5 @@ if (!class_exists(ViewConverterCommand::class)) {
 $application = new Application();
 $application->add(new ViewConverterCommand());
 $application->add(new StimulusConverterCommand());
+$application->add(new JqueryConverterCommand());
 $application->run();
