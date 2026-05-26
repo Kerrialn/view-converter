@@ -4,6 +4,7 @@
 use ViewConverter\Command\JqueryConverterCommand;
 use ViewConverter\Command\StimulusConverterCommand;
 use ViewConverter\Command\ViewConverterCommand;
+use ViewConverter\Command\VueConverterCommand;
 use Symfony\Component\Console\Application;
 
 $autoloadPaths = [
@@ -29,4 +30,5 @@ $application = new Application();
 $application->add(new ViewConverterCommand());
 $application->add(new StimulusConverterCommand());
 $application->add(new JqueryConverterCommand());
+$application->add(new VueConverterCommand());
 $application->run();

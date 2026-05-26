@@ -1,6 +1,6 @@
 # View Converter
 
-Convert legacy PHP view templates to **Twig** or **Blade** syntax, and convert legacy JavaScript files to **Stimulus controllers**.
+Convert legacy PHP view templates to **Twig** or **Blade** syntax, and convert legacy JavaScript files to **Stimulus controllers**, **Vue 3 SFCs**, or modern vanilla JS.
 
 ## Installation
 
@@ -11,7 +11,7 @@ composer require kerrialn/view-converter
 ## Requirements
 
 - PHP >= 7.4
-- Node.js >= 16 _(required for the `stimulus:convert` command only)_
+- Node.js >= 16 _(required for `stimulus:convert`, `jquery:convert`, and `vue:convert`)_
 
 ---
 
@@ -155,6 +155,128 @@ views/nav.html
 ```
 
 > **Note:** Node.js dependencies are installed automatically on first run inside the package's `node/` directory — no manual setup required.
+
+---
+
+### `jquery:convert` — Legacy jQuery JS → vanilla JS
+
+Rewrites a jQuery-heavy script to modern vanilla JS using an AST parser. Handles the most common jQuery patterns automatically and leaves a TODO comment for anything that needs manual attention.
+
+#### Basic usage
+
+```bash
+php bin/view-converter jquery:convert ./js/modal.js
+```
+
+#### Preview without writing a file
+
+```bash
+php bin/view-converter jquery:convert ./js/modal.js --dry-run
+```
+
+#### Convert a whole directory
+
+```bash
+php bin/view-converter jquery:convert ./js --output=./js/vanilla
+```
+
+#### Options
+
+| Option | Description |
+|---|---|
+| `--output=<path>` | Output directory (defaults to same directory as input) |
+| `--dry-run` | Preview the converted output without writing a file |
+
+#### What gets converted
+
+| jQuery | Vanilla JS |
+|---|---|
+| `$(selector)` / `$(el)` | `document.querySelector` / `document.querySelectorAll` |
+| `$.ready` / `$(fn)` / `$(document).ready(fn)` | `document.addEventListener('DOMContentLoaded', fn)` |
+| `.on('click', fn)` | `.addEventListener('click', fn)` |
+| `.on('click keydown', fn)` | `['click','keydown'].forEach((ev) => el.addEventListener(ev, fn))` |
+| `.addClass` / `.removeClass` / `.toggleClass` | `.classList.add` / `.classList.remove` / `.classList.toggle` |
+| `.hasClass` | `.classList.contains` |
+| `.attr(name)` / `.attr(name, val)` | `.getAttribute` / `.setAttribute` |
+| `.val()` / `.val(v)` | `.value` / `.value = v` |
+| `.text()` / `.html()` | `.textContent` / `.innerHTML` |
+| `.hide()` / `.show()` | `style.display = 'none'` / `style.display = ''` |
+| `.css(prop, val)` | `.style.prop = val` |
+| `.find(sel)` | `.querySelector(sel)` |
+| `.closest(sel)` | `.closest(sel)` |
+| `.each(fn)` | `.forEach(fn)` |
+| `$.ajax` / `$.post` / `$.get` / `$.getJSON` | `fetch(...)` with chained `.then()` |
+| `var` declarations | `let` |
+| jQuery IIFE wrapper `(function($){…})($)` | Stripped (body kept) |
+
+Output files use a `.vanilla.js` suffix.
+
+---
+
+### `vue:convert` — Vanilla JS + HTML template → Vue 3 SFC
+
+Transforms a vanilla JS file (and an optional HTML/PHP/Twig template) into a Vue 3 Single File Component skeleton. Can optionally run the jQuery converter first as part of the pipeline.
+
+#### Basic usage
+
+```bash
+php bin/view-converter vue:convert ./js/modal.js
+```
+
+#### With an HTML/PHP template
+
+```bash
+php bin/view-converter vue:convert ./js/modal.js --html=./views/modal.php
+```
+
+#### From jQuery in one step
+
+```bash
+php bin/view-converter vue:convert ./js/modal.js --from-jquery --html=./views/modal.php
+```
+
+#### Preview without writing a file
+
+```bash
+php bin/view-converter vue:convert ./js/modal.js --html=./views/modal.php --dry-run
+```
+
+#### Options
+
+| Option | Description |
+|---|---|
+| `--html=<path>` | HTML/PHP/Twig template to extract the `<template>` block from |
+| `--from-jquery` | Run the jQuery converter first, then produce the Vue SFC |
+| `--output=<path>` | Output directory (defaults to same directory as input) |
+| `--dry-run` | Preview the generated SFC without writing a file |
+
+#### What gets converted
+
+**JavaScript:**
+
+| Pattern | Vue output |
+|---|---|
+| `document.addEventListener('DOMContentLoaded', fn)` | `onMounted(fn)` |
+| `document.getElementById('foo')` | Annotated with a `ref` TODO comment; `ref="foo"` injected in template |
+| `querySelector` / `querySelectorAll` | Annotated with a `ref` TODO comment |
+| Vue imports | Collected and emitted as a single `import { onMounted, ref } from 'vue'` line |
+
+**PHP/Twig template syntax (when `--html` points to a `.php` or `.twig` file):**
+
+| PHP | Vue template |
+|---|---|
+| `<?= $var ?>` / `<?php echo $var ?>` | `{{ var }}` |
+| `<?php if ($x): ?>` | `v-if="x"` injected on the next element |
+| `<?php elseif ($x): ?>` | `v-else-if="x"` injected on the next element |
+| `<?php else: ?>` | `v-else` injected on the next element |
+| `<?php foreach ($arr as $val): ?>` | `v-for="val in arr"` injected on the next element |
+| `htmlspecialchars($x)` | `$x` (Vue auto-escapes) |
+| `count($x)` | `x.length` |
+| `$arr['key']` | `arr.key` |
+
+> Multi-element `v-if` / `v-for` blocks (needing a `<template>` wrapper) and counter-based `for` loops are flagged with a comment for manual migration.
+
+Output files use a `.vue` extension.
 
 ---
 

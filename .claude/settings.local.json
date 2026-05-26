@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(composer phpstan *)",
-      "Bash(node *)"
-    ]
-  }
-}
