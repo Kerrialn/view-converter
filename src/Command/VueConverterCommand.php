@@ -97,7 +97,7 @@ class VueConverterCommand extends Command
     {
         $nodeDir = dirname(__DIR__, 2) . '/node';
         $jqueryScript = $nodeDir . '/jquery-transform.mjs';
-        $vueScript    = $nodeDir . '/vue-transform.mjs';
+        $vueScript = $nodeDir . '/vue-transform.mjs';
 
         $this->ensureNodeModules($nodeDir, $io);
 
